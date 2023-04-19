@@ -19,6 +19,6 @@ public class TempRestController {
 
     @GetMapping("/hello")
     public String helloTemp() {
-        return "Hello " + tempString;
+        return "Hello! " + tempString;
     }
 }
