@@ -1,0 +1,23 @@
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /rest-docs
+  group-configs:
+    - group: air
+      paths-to-match:
+        - /**/airport/**
+    - group: hotel
+      paths-to-match:
+        - /**/hotel/**
+    - group: destination-content
+      paths-to-match:
+        - /**/destination-content/**
+    - group: storage
+      paths-to-match:
+        - /**/storage/**
+    - group: payment
+      paths-to-match:
+        - /**/payment/**
