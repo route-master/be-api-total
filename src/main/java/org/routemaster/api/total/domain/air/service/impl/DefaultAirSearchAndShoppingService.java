@@ -52,4 +52,33 @@ public class DefaultAirSearchAndShoppingService implements AirSearchAndShoppingS
             throw new RuntimeException(e); // Required Custom Exception Handling
         }
     }
+
+    @Override
+    public List<DestinationVO> airlineRoutes(String airlineCode, Long max) {
+        Params params = Params.with("airlineCode", airlineCode);
+
+        if (max != null) {
+            params.and("max", max);
+        }
+
+        return airlineRoutes(params);
+    }
+
+    private List<DestinationVO> airlineRoutes(Params params) {
+        try {
+            Destination[] destinations = amadeus.airline.destinations.get(params);
+            List<DestinationVO> destinationVOs = new ArrayList<>();
+            for (Destination destination : destinations) {
+                destinationVOs.add(
+                        DestinationVO.builder()
+                                .destination(destination)
+                                .build()
+                );
+            }
+            return destinationVOs;
+        } catch (ResponseException e) {
+            throw new RuntimeException(e); // Required Custom Exception Handling
+        }
+    }
+
 }
