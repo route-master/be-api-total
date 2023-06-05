@@ -2,7 +2,7 @@ package org.routemaster.api.total.domain.air.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.routemaster.api.total.domain.air.service.AirUtilitiesService;
+import org.routemaster.api.total.domain.air.service.AirportService;
 import org.routemaster.api.total.infra.amadeus.vo.LocationVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AirportAndCitySearchRestController {
 
-    private final AirUtilitiesService airUtilitiesService;
+    private final AirportService airportService;
 
     @GetMapping("/locations")
     public ResponseEntity<List<LocationVO>> locations(
@@ -31,7 +31,7 @@ public class AirportAndCitySearchRestController {
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String view
             ) {
-        List<LocationVO> locations = airUtilitiesService.airportAndCitySearch(
+        List<LocationVO> locations = airportService.airportAndCitySearch(
                 subType,
                 keyword,
                 countryCode,

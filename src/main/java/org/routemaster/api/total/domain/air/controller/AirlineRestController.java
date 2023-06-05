@@ -3,7 +3,7 @@ package org.routemaster.api.total.domain.air.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.routemaster.api.total.domain.air.service.AirSearchAndShoppingService;
+import org.routemaster.api.total.domain.air.service.AirlinesService;
 import org.routemaster.api.total.infra.amadeus.vo.DestinationVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AirlineRestController {
 
-    private final AirSearchAndShoppingService airSearchAndShoppingService;
+    private final AirlinesService airlinesService;
 
     @GetMapping("/destinations")
     public ResponseEntity<List<DestinationVO>> directDestinations(
@@ -33,7 +33,7 @@ public class AirlineRestController {
                     description = "응답의 최대 개수"
             ) @RequestParam(required = false) Long max
     ) {
-        List<DestinationVO> destinations = airSearchAndShoppingService.airlineRoutes(airlineCode, max);
+        List<DestinationVO> destinations = airlinesService.airlineRoutes(airlineCode, max);
         return new ResponseEntity<>(destinations, HttpStatus.OK);
     }
 }

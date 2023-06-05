@@ -4,9 +4,6 @@ import org.routemaster.api.total.infra.amadeus.vo.DestinationVO;
 
 import java.util.List;
 
-public interface AirSearchAndShoppingService {
-
-    List<DestinationVO> airportRoutes(String departureAirportCode, Long max);
-
+public interface AirlinesService {
     List<DestinationVO> airlineRoutes(String airlineCode, Long max);
 }

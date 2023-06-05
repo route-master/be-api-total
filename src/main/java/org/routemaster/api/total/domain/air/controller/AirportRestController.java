@@ -9,8 +9,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.routemaster.api.total.domain.air.service.AirportService;
 import org.routemaster.api.total.infra.amadeus.vo.DestinationVO;
-import org.routemaster.api.total.domain.air.service.AirSearchAndShoppingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AirportRestController {
 
-    private final AirSearchAndShoppingService airSearchAndShoppingService;
+    private final AirportService airportService;
 
     @Operation(
             summary = "공항 직행 노선 조회",
@@ -71,7 +71,7 @@ public class AirportRestController {
                     description = "응답의 최대 개수",
                     required = false
             ) @RequestParam(required = false) Long max) {
-        List<DestinationVO> destinations = airSearchAndShoppingService.airportRoutes(departureAirportCode, max);
+        List<DestinationVO> destinations = airportService.airportRoutes(departureAirportCode, max);
         return new ResponseEntity<>(destinations, HttpStatus.OK);
     }
 }
