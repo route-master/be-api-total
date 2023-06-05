@@ -39,14 +39,9 @@ public class DestinationVO {
     private String iataCode;
 
     public static final class DestinationVOBuilder {
-        private String type;
-        private String subtype;
-        private String name;
-        private String iataCode;
-
         public DestinationVOBuilder destination(Destination destination) {
             this.type = destination.getType();
-            this.subtype = destination.getSubtype();
+            this.subType = destination.getSubtype();
             this.name = destination.getName();
             this.iataCode = destination.getIataCode();
             return this;

@@ -18,24 +18,20 @@ public class LocationVO {
     private String iataCode;
     private Location.GeoCode geoCode;
     private Location.Address address;
-    private Location.Distance distance;
     private Location.Analytics analytics;
-    private Double relavance;
 
     public static final class LocationVOBuilder {
 
         public LocationVOBuilder location(Location location) {
-            String type = location.getType();
-            String subtype = location.getSubType();
-            String name = location.getName();
+            this.type = location.getType();
+            this.subtype = location.getSubType();
+            this.name = location.getName();
             this.detailedName = location.getDetailedName();
             this.timeZoneOffset = location.getTimeZoneOffset();
             this.iataCode = location.getIataCode();
             this.geoCode = location.getGeoCode();
             this.address = location.getAddress();
-            this.distance = location.getDistance();
-            Location.Analytics analytics = location.getAnalytics();
-            Double relavance = location.getRelevance();
+            this.analytics = location.getAnalytics();
             return this;
         }
     }
