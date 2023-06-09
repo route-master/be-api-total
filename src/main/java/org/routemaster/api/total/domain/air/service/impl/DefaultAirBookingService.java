@@ -26,7 +26,7 @@ public class DefaultAirBookingService implements AirBookingService {
     }
 
     @Override
-    public List<FlightOfferSearchVO> flightOfferSearch(
+    public List<FlightOfferSearchVO> getFlightOfferSearch(
             String originLocationCode,
             String destinationLocationCode,
             String departureDate,
@@ -56,10 +56,10 @@ public class DefaultAirBookingService implements AirBookingService {
         if (maxPrice != null) { params.and("maxPrice", maxPrice); }
         if (max != null) { params.and("max", max); }
 
-        return flightOfferSearch(params);
+        return getFlightOfferSearch(params);
     }
 
-    private List<FlightOfferSearchVO> flightOfferSearch(Params params) {
+    private List<FlightOfferSearchVO> getFlightOfferSearch(Params params) {
         try {
             FlightOfferSearch[] flightOfferSearches = amadeus.shopping.flightOffersSearch.get(params);
             List<FlightOfferSearchVO> flightOfferSearchVOs = new ArrayList<>();
@@ -75,4 +75,23 @@ public class DefaultAirBookingService implements AirBookingService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<FlightOfferSearchVO> postFlightOfferSearch(String getFlightOffersBody) {
+        try {
+            FlightOfferSearch[] flightOfferSearches = amadeus.shopping.flightOffersSearch.post(getFlightOffersBody);
+            List<FlightOfferSearchVO> flightOfferSearchVOs = new ArrayList<>();
+            for (FlightOfferSearch flightOfferSearch: flightOfferSearches) {
+                flightOfferSearchVOs.add(
+                        FlightOfferSearchVO.builder()
+                                .flightOfferSearch(flightOfferSearch)
+                                .build()
+                );
+            }
+            return flightOfferSearchVOs;
+        } catch (ResponseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

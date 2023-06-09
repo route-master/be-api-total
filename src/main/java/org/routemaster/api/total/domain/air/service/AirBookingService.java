@@ -5,7 +5,7 @@ import org.routemaster.api.total.infra.amadeus.vo.FlightOfferSearchVO;
 import java.util.List;
 
 public interface AirBookingService {
-    List<FlightOfferSearchVO> flightOfferSearch(
+    List<FlightOfferSearchVO> getFlightOfferSearch(
             String originLocationCode,
             String destinationLocationCode,
             String departureDate,
@@ -21,4 +21,7 @@ public interface AirBookingService {
             Integer maxPrice,
             Integer max
     );
+
+    List<FlightOfferSearchVO> postFlightOfferSearch(String getFlightOffersBody);
+
 }

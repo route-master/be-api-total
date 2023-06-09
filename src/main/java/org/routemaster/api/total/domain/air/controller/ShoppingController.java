@@ -6,10 +6,7 @@ import org.routemaster.api.total.domain.air.service.AirBookingService;
 import org.routemaster.api.total.infra.amadeus.vo.FlightOfferSearchVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,6 @@ import java.util.List;
 @RequestMapping("/shopping")
 @RequiredArgsConstructor
 public class ShoppingController {
-
     private final AirBookingService airBookingService;
 
     @GetMapping("/flight-offers")
@@ -39,7 +35,7 @@ public class ShoppingController {
             @RequestParam(required = false) Integer max
 
     ) {
-        List<FlightOfferSearchVO> flightOfferSearchVOs = airBookingService.flightOfferSearch(
+        List<FlightOfferSearchVO> flightOfferSearchVOs = airBookingService.getFlightOfferSearch(
                 originLocationCode,
                 destinationLocationCode,
                 departureDate,
@@ -54,6 +50,12 @@ public class ShoppingController {
                 currencyCode,
                 maxPrice,
                 max);
+        return new ResponseEntity<>(flightOfferSearchVOs, HttpStatus.OK);
+    }
+
+    @PostMapping("/flight-offers")
+    public ResponseEntity<List<FlightOfferSearchVO>> postFlightOffers(@RequestBody String requestBody) {
+        List<FlightOfferSearchVO> flightOfferSearchVOs = airBookingService.postFlightOfferSearch(requestBody);
         return new ResponseEntity<>(flightOfferSearchVOs, HttpStatus.OK);
     }
 
