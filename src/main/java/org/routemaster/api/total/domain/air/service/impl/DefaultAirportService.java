@@ -79,7 +79,7 @@ public class DefaultAirportService implements AirportService {
     }
 
     private List<LocationVO> airportAndCitySearch(Params params) {
-        try{
+        try {
             Location[] locations = amadeus.referenceData.locations.get(params);
             List<LocationVO> locationVOs = new ArrayList<>();
             for (Location location : locations) {
@@ -93,7 +93,55 @@ public class DefaultAirportService implements AirportService {
         } catch (ResponseException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @Override
+    public LocationVO airportAndCitySearch(String locationId) {
+        try {
+            Location location = amadeus.referenceData.location(locationId).get();
+            return LocationVO.builder().location(location).build();
+        } catch (ResponseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<LocationVO> airportNearestRelevant(Double latitude,
+                                                    Double longitude,
+                                                    Integer radius,
+                                                    Integer pageLimit,
+                                                    Integer pageOffset,
+                                                    String sort) {
+        Params params = Params.with("latitude", latitude).and("longitude", longitude);
+
+        if (radius != null)
+            params.and("radius", radius);
+        if (pageLimit != null)
+            params.and("page[limit]", pageLimit);
+        if (pageOffset != null)
+            params.and("page[offset]", pageOffset);
+        if (sort != null)
+            params.and("sort", sort);
+
+        return airportNearestRelevant(params);
+    }
+
+    private List<LocationVO> airportNearestRelevant(Params params) {
+        try {
+            Location[] locations = amadeus.referenceData.locations.airports.get(params);
+            List<LocationVO> locationVOs = new ArrayList<>();
+            for (Location location : locations) {
+                locationVOs.add(
+                        LocationVO.builder()
+                                .location(location)
+                                .build()
+                );
+            }
+            return locationVOs;
+        } catch (ResponseException e) {
+//            throw new org.routemaster.lib.exception.data.roe.client.ROEBadRequest()
+            throw new RuntimeException(e);
+        }
     }
 
 }

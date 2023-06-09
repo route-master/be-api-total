@@ -14,5 +14,11 @@ public interface AirportService {
                                           Integer pageOffset,
                                           String sort,
                                           String view);
-
+    LocationVO airportAndCitySearch(String locationId);
+    List<LocationVO> airportNearestRelevant(Double latitude,
+                                            Double longitude,
+                                            Integer radius,
+                                            Integer pageLimit,
+                                            Integer pageOffset,
+                                            String sort);
 }
