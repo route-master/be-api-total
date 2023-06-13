@@ -1,1 +1,9 @@
+spring:
+  config:
+    import:
+      - dev/amadeus.yml
+      - dev/tour-api.yml
+  jackson:
+    default-property-inclusion: non_null
+
 temp-string: prod
