@@ -1,9 +1,9 @@
 package org.routemaster.api.total.domain.attraction.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
+import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class AttractionSearchRestController {
     private final AttractionSearchService attractionSearchService;
 
     @GetMapping("/location-based")
-    public ResponseEntity<Mono<JsonNode>> locationBase(
+    public ResponseEntity<Mono<AttractionSearchVO>> locationBase(
             @RequestParam(required = false) Integer numOfRows,
             @RequestParam(required = false) Integer pageNo,
             @RequestParam String MobileOS,
@@ -35,7 +35,7 @@ public class AttractionSearchRestController {
             @RequestParam(required = false) Integer contentTypeId,
             @RequestParam(required = false) String modifiedTime
     ) {
-        Mono<JsonNode> result = attractionSearchService.searchLocationBasedAttraction(
+        Mono<AttractionSearchVO> result = attractionSearchService.searchLocationBasedAttraction(
                 numOfRows,
                 pageNo,
                 MobileOS,

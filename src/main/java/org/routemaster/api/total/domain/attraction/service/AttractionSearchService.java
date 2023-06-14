@@ -1,11 +1,11 @@
 package org.routemaster.api.total.domain.attraction.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import reactor.core.publisher.Mono;
 
 public interface AttractionSearchService {
 
-    Mono<JsonNode> searchLocationBasedAttraction(
+    Mono<AttractionSearchVO> searchLocationBasedAttraction(
             Integer numOfRows,
             Integer pageNo,
             String MobileOS,

@@ -1,16 +1,18 @@
 package org.routemaster.api.total.domain.attraction.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
 import org.routemaster.api.total.infra.tourapi.value.TourAPI;
+import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 
 @Slf4j
@@ -18,7 +20,7 @@ import reactor.core.publisher.Mono;
 public class DefaultAttractionSearchService implements AttractionSearchService {
 
     @Override
-    public Mono<JsonNode> searchLocationBasedAttraction(
+    public Mono<AttractionSearchVO> searchLocationBasedAttraction(
             Integer numOfRows,
             Integer pageNo,
             String MobileOS,
@@ -42,7 +44,7 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                 .baseUrl(TourAPI.baseUrl)
                 .build();
 
-        Mono<JsonNode> result = webClient.get()
+        Mono<AttractionSearchVO> result = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/locationBasedList1")
                         .queryParam("serviceKey", TourAPI.encodingKey)
@@ -66,9 +68,12 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                         .map(str -> {
                                     ObjectMapper objectMapper = new ObjectMapper();
                                     try {
-                                        return mapper.readTree(str);
-
-                                    } catch (JsonProcessingException e) {
+                                        JsonNode jsonNode = mapper.readTree(str);
+                                        AttractionSearchVO attractionSearchVO = AttractionSearchVO.builder()
+                                                .fromJsonNode(jsonNode.get("response").get("body"))
+                                                .build();
+                                        return attractionSearchVO;
+                                    } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
                                 }
