@@ -70,7 +70,9 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                                     try {
                                         JsonNode jsonNode = mapper.readTree(str);
                                         AttractionSearchVO attractionSearchVO = AttractionSearchVO.builder()
-                                                .fromJsonNode(jsonNode.get("response").get("body"))
+                                                .resultCode(jsonNode.get("response").get("header").get("resultCode").asText())
+                                                .resultMessage(jsonNode.get("response").get("header").get("resultMsg").asText())
+                                                .locationBasedItems(jsonNode.get("response").get("body"))
                                                 .build();
                                         return attractionSearchVO;
                                     } catch (IOException e) {

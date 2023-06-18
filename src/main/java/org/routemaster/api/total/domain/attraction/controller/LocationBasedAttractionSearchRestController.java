@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/attraction-search")
 @RequiredArgsConstructor
-public class AttractionSearchRestController {
+public class LocationBasedAttractionSearchRestController {
 
     private final AttractionSearchService attractionSearchService;
 
@@ -44,7 +44,7 @@ public class AttractionSearchRestController {
             )
     })
     @GetMapping("/location-based")
-    public ResponseEntity<Mono<AttractionSearchVO>> locationBase(
+    public ResponseEntity<Mono<AttractionSearchVO>> locationBased(
             @Parameter(
                     description = "한 페이지 결과 수",
                     example = "10"
@@ -58,24 +58,20 @@ public class AttractionSearchRestController {
                     example = "ETC",
                     schema = @Schema(
                             allowableValues = {
-                                    "AND",
-                                    "IOS",
-                                    "WIN",
-                                    "ETC"
+                                    "AND", "IOS", "WIN", "ETC"
                             }
                     )
             ) @RequestParam String MobileOS,
             @Parameter(
                     description = "서비스명(어플명)",
-                    example = "AppTest"
+                    example = "TimeMap"
             ) @RequestParam String MobileApp,
             @Parameter(
-                    description = "응답메세지 형식",
+                    description = "응답메시지 형식",
                     example = "json",
                     schema = @Schema(
                             allowableValues = {
-                                    "xml",
-                                    "json"
+                                    "xml", "json"
                             }
                     )
             ) @RequestParam(required = false) String _type,
@@ -84,8 +80,7 @@ public class AttractionSearchRestController {
                     example = "Y",
                     schema = @Schema(
                             allowableValues = {
-                                    "Y",
-                                    "N"
+                                    "Y", "N"
                             }
                     )
             ) @RequestParam(required = false) String listYN,
@@ -94,10 +89,7 @@ public class AttractionSearchRestController {
                     example = "A",
                     schema = @Schema(
                             allowableValues = {
-                                    "A",
-                                    "B",
-                                    "C",
-                                    "D"
+                                    "A", "B", "C", "D"
                             }
                     )
             ) @RequestParam(required = false) String arrange,
