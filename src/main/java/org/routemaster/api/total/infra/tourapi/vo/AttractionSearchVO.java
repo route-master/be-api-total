@@ -1,6 +1,7 @@
 package org.routemaster.api.total.infra.tourapi.vo;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,12 +16,30 @@ import java.util.List;
 @ToString
 public class AttractionSearchVO {
 
-    private @Getter String resultCode;
-    private @Getter String resultMessage;
+    @Schema(
+            description = "API 호출 결과의 상태 코드",
+            example = "0000"
+    ) private @Getter String resultCode;
+    @Schema(
+            description = "API 호출 결과의 상태 메시지",
+            example = "OK"
+    ) private @Getter String resultMessage;
+    @Schema(
+            description = "Attraction 결과 리스트(Local/Area/Keyword 기반 검색 결과에 따라 결과값이 일부 다르므로 API 직접 호출하여 확인 필요)"
+    )
     private @Getter List<AttractionVO> attractions;
-    private @Getter Integer numOfRows;
-    private @Getter Integer pageNo;
-    private @Getter Integer totalCount;
+    @Schema(
+            description = "한 페이지 당 결과 수",
+            example = "10"
+    ) private @Getter Integer numOfRows;
+    @Schema(
+            description = "페이지 번호",
+            example = "1"
+    ) private @Getter Integer pageNo;
+    @Schema(
+            description = "전체 결과 수",
+            example = "100"
+    ) private @Getter Integer totalCount;
 
     public static final class AttractionSearchVOBuilder {
         public AttractionSearchVOBuilder locationBasedItems(JsonNode jsonNode) {
