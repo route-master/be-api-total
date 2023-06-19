@@ -1,6 +1,5 @@
 package org.routemaster.api.total.domain.attraction.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
@@ -24,10 +23,6 @@ public class KeywordBasedAttractionRestController {
     public ResponseEntity<Mono<AttractionSearchVO>> keywordBased(
             @RequestParam(required = false) Integer numOfRows,
             @RequestParam(required = false) Integer pageNo,
-            @RequestParam String MobileOS,
-            @RequestParam String MobileApp,
-            @RequestParam(required = false) String _type,
-            @RequestParam(required = false) String listYN,
             @RequestParam(required = false) String arrange,
             @RequestParam String keyword,
             @RequestParam(required = false) Integer contentTypeId,
@@ -40,10 +35,6 @@ public class KeywordBasedAttractionRestController {
         Mono<AttractionSearchVO> result = attractionSearchService.searchKeywordBasedAttraction(
                 numOfRows,
                 pageNo,
-                MobileOS,
-                MobileApp,
-                _type,
-                listYN,
                 arrange,
                 keyword,
                 contentTypeId,

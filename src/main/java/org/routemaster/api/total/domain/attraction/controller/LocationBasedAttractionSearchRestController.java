@@ -54,37 +54,6 @@ public class LocationBasedAttractionSearchRestController {
                     example = "1"
             ) @RequestParam(required = false) Integer pageNo,
             @Parameter(
-                    description = "OS 구분",
-                    example = "ETC",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "AND", "IOS", "WIN", "ETC"
-                            }
-                    )
-            ) @RequestParam String MobileOS,
-            @Parameter(
-                    description = "서비스명(어플명)",
-                    example = "TimeMap"
-            ) @RequestParam String MobileApp,
-            @Parameter(
-                    description = "응답메시지 형식",
-                    example = "json",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "xml", "json"
-                            }
-                    )
-            ) @RequestParam(required = false) String _type,
-            @Parameter(
-                    description = "목록 구분(Y=목록, N=개수)",
-                    example = "Y",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "Y", "N"
-                            }
-                    )
-            ) @RequestParam(required = false) String listYN,
-            @Parameter(
                     description = "정렬 구분(A=제목순, C=수정일순, D=생성일순)",
                     example = "A",
                     schema = @Schema(
@@ -121,10 +90,6 @@ public class LocationBasedAttractionSearchRestController {
         Mono<AttractionSearchVO> result = attractionSearchService.searchLocationBasedAttraction(
                 numOfRows,
                 pageNo,
-                MobileOS,
-                MobileApp,
-                _type,
-                listYN,
                 arrange,
                 mapX,
                 mapY,

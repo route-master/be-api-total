@@ -26,7 +26,7 @@ public class AreaBasedAttractionSearchRestController {
     private final AttractionSearchService attractionSearchService;
 
     @Operation(
-            summary = "지역 기반 관광정보 조회",
+            summary = "지역 기반 관광 정보 조회",
             description = "지역 및 시군구를 기반으로 관광정보 목록을 조회",
             tags = {
                     "attraction-search"
@@ -44,19 +44,6 @@ public class AreaBasedAttractionSearchRestController {
     })
     @GetMapping("/area-based")
     public ResponseEntity<Mono<AttractionSearchVO>> areaBased(
-            @Parameter(
-                    description = "OS 구분",
-                    example = "ETC",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "AND", "IOS", "WIN", "ETC"
-                            }
-                    )
-            ) @RequestParam String MobileOS,
-            @Parameter(
-                    description = "서비스명(어플명)",
-                    example = "TimeMap"
-            ) @RequestParam String MobileApp,
             @Parameter(
                     description = "한 페이지 결과 수",
                     example = "10"
@@ -101,33 +88,11 @@ public class AreaBasedAttractionSearchRestController {
             @Parameter(
                     description = "수정일자",
                     example = "20191001"
-            ) @RequestParam(required = false) String modifiedTime,
-            @Parameter(
-                    description = "목록 구분",
-                    example = "Y",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "Y", "N"
-                            }
-                    )
-            ) @RequestParam(required = false) String listYN,
-            @Parameter(
-                    description = "응답메시지 형식",
-                    example = "json",
-                    schema = @Schema(
-                            allowableValues = {
-                                    "xml", "json"
-                            }
-                    )
-            ) @RequestParam(required = false) String _type
+            ) @RequestParam(required = false) String modifiedTime
     ) {
         Mono<AttractionSearchVO> result = attractionSearchService.searchAreaBasedAttraction(
             numOfRows,
             pageNo,
-            MobileOS,
-            MobileApp,
-            _type,
-            listYN,
             arrange,
             contentTypeId,
             areaCode,

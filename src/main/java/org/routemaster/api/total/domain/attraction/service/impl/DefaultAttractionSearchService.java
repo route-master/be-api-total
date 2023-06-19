@@ -21,14 +21,15 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class DefaultAttractionSearchService implements AttractionSearchService {
 
+    private final String MOBILEOS = "ETC";
+    private final String MOBILEAPP = "TimeMap";
+    private final String TYPE = "json";
+    private final String LISTNY = "Y";
+
     @Override
     public Mono<AttractionSearchVO> searchLocationBasedAttraction(
             Integer numOfRows,
             Integer pageNo,
-            String MobileOS,
-            String MobileApp,
-            String _type,
-            String listYN,
             String arrange,
             Double mapX,
             Double mapY,
@@ -50,15 +51,15 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                 .uri(uriBuilder -> uriBuilder
                         .path("/locationBasedList1")
                         .queryParam("serviceKey", TourAPI.encodingKey)
-                        .queryParam("MobileOS", MobileOS)
-                        .queryParam("MobileApp", MobileApp)
+                        .queryParam("MobileOS", MOBILEOS)
+                        .queryParam("MobileApp", MOBILEAPP)
                         .queryParam("mapX", mapX)
                         .queryParam("mapY", mapY)
                         .queryParam("radius", radius)
-                        .queryParam("_type", "json")
+                        .queryParam("_type", TYPE)
                         .queryParam("numOfRows", numOfRows)
                         .queryParam("pageNo", pageNo)
-                        .queryParam("listYN", listYN)
+                        .queryParam("listYN", LISTNY)
                         .queryParam("arrange", arrange)
                         .queryParam("contentTypeId", contentTypeId)
                         .queryParam("modifiedtime", modifiedtime)
@@ -89,10 +90,6 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
     public Mono<AttractionSearchVO> searchAreaBasedAttraction(
             Integer numOfRows,
             Integer pageNo,
-            String MobileOS,
-            String MobileApp,
-            String _type,
-            String listYN,
             String arrange,
             Integer contentTypeId,
             Integer areaCode,
@@ -115,12 +112,12 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                 .uri(uriBuilder -> uriBuilder
                         .path("/areaBasedList1")
                         .queryParam("serviceKey", TourAPI.encodingKey)
-                        .queryParam("MobileOS", MobileOS)
-                        .queryParam("MobileApp", MobileApp)
-                        .queryParam("_type", "json")
+                        .queryParam("MobileOS", MOBILEOS)
+                        .queryParam("MobileApp", MOBILEAPP)
+                        .queryParam("_type", TYPE)
                         .queryParam("numOfRows", numOfRows)
                         .queryParam("pageNo", pageNo)
-                        .queryParam("listYN", listYN)
+                        .queryParam("listYN", LISTNY)
                         .queryParam("arrange", arrange)
                         .queryParam("contentTypeId", contentTypeId)
                         .queryParam("areaCode", areaCode)
@@ -156,10 +153,6 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
     public Mono<AttractionSearchVO> searchKeywordBasedAttraction(
             Integer numOfRows,
             Integer pageNo,
-            String MobileOS,
-            String MobileApp,
-            String _type,
-            String listYN,
             String arrange,
             String keyword,
             Integer contentTypeId,
@@ -180,12 +173,12 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                 .uri(uriBuilder -> uriBuilder
                         .path("/searchKeyword1")
                         .queryParam("serviceKey", TourAPI.encodingKey)
-                        .queryParam("MobileOS", MobileOS)
-                        .queryParam("MobileApp", MobileApp)
+                        .queryParam("MobileOS", MOBILEOS)
+                        .queryParam("MobileApp", MOBILEAPP)
                         .queryParam("_type", "json")
                         .queryParam("numOfRows", numOfRows)
                         .queryParam("pageNo", pageNo)
-                        .queryParam("listYN", listYN)
+                        .queryParam("listYN", LISTNY)
                         .queryParam("arrange", arrange)
                         .queryParam("keyword", URLEncoder.encode(keyword, StandardCharsets.UTF_8))
                         .queryParam("contentTypeId", contentTypeId)
