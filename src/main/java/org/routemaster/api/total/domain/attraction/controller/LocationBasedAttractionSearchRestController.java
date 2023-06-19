@@ -88,8 +88,8 @@ public class LocationBasedAttractionSearchRestController {
                     )
             ) @RequestParam(required = false) Integer contentTypeId,
             @Parameter(
-                    description = "콘텐츠 수정일",
-                    example = "2022-10-20 10:00:00.0"
+                    description = "콘텐츠 수정일(형식: YYYYMMDD)",
+                    example = "20221030"
             ) @RequestParam(required = false) String modifiedTime
     ) {
         Mono<AttractionSearchVO> result = attractionSearchService.searchLocationBasedAttraction(

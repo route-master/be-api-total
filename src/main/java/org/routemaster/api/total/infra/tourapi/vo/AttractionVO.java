@@ -1,5 +1,6 @@
 package org.routemaster.api.total.infra.tourapi.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -88,13 +89,15 @@ public class AttractionVO {
             description = "대표 이미지(썸네일, 150*100) URI",
             example = "http://tong.visitkorea.or.kr/cms/resource/71/181971_image3_1.jpg"
     ) private @Getter URI thumbnailImage;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Schema(
             description = "콘텐츠 최초 등록일",
-            example = "2022-06-24 10:43:57.0"
+            example = "2022-06-24 09:00:00"
     ) private @Getter Date createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Schema(
             description = "콘텐츠 수정일",
-            example = "2022-06-24 10:43:57.0"
+            example = "2022-06-24 09:00:00"
     ) private @Getter Date modifiedTime;
     @Schema(
             description = "교과서 속 여행지 여부",

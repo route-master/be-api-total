@@ -3,8 +3,6 @@ package org.routemaster.api.total.domain.attraction.service;
 import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import reactor.core.publisher.Mono;
 
-import java.util.Date;
-
 public interface AttractionSearchService {
 
     Mono<AttractionSearchVO> searchLocationBasedAttraction(

@@ -96,7 +96,7 @@ public class AreaBasedAttractionSearchRestController {
                     example = "A01010100"
             ) @RequestParam(required = false) String cat3,
             @Parameter(
-                    description = "수정일자",
+                    description = "콘텐츠 수정일(형식: YYYYMMDD)",
                     example = "20191001"
             ) @RequestParam(required = false) String modifiedTime
     ) {
