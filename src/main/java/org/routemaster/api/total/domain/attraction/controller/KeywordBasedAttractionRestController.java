@@ -83,11 +83,11 @@ public class KeywordBasedAttractionRestController {
                                     "1", "2", "3", "4", "5", "6", "7", "8", "31", "32", "33", "34", "35", "36", "37", "38", "39"
                             }
                     )
-            ) @RequestParam(required = false) String areaCode,
+            ) @RequestParam(required = false) Integer areaCode,
             @Parameter(
                     description = "시군구코드",
                     example = "1"
-            ) @RequestParam(required = false) String sigunguCode,
+            ) @RequestParam(required = false) Integer sigunguCode,
             @Parameter(
                     description = "대분류",
                     example = "A01"

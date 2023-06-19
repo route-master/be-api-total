@@ -156,8 +156,8 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
             String arrange,
             String keyword,
             Integer contentTypeId,
-            String areaCode,
-            String sigunguCode,
+            Integer areaCode,
+            Integer sigunguCode,
             String cat1,
             String cat2,
             String cat3
