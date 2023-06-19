@@ -79,8 +79,13 @@ public class LocationBasedAttractionSearchRestController {
                     )
             ) @RequestParam Integer radius,
             @Parameter(
-                    description = "관광타입(관광지, 숙박 등) ID",
-                    example = "12"
+                    description = "관광지 타입(12: 관광지, 14: 문화시설, 15: 행사/공연/축제, 25: 여행코스, 28: 레포츠, 32: 숙박, 38: 쇼핑, 39: 음식점)",
+                    example = "12",
+                    schema = @Schema(
+                            allowableValues = {
+                                    "12", "14", "15", "25", "28", "32", "38", "39"
+                            }
+                    )
             ) @RequestParam(required = false) Integer contentTypeId,
             @Parameter(
                     description = "콘텐츠 수정일",

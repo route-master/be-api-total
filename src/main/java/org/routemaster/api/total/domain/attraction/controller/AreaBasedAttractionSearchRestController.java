@@ -62,12 +62,22 @@ public class AreaBasedAttractionSearchRestController {
                     )
             ) @RequestParam(required = false) String arrange,
             @Parameter(
-                    description = "관광지 타입",
-                    example = "12"
+                    description = "관광지 타입(12: 관광지, 14: 문화시설, 15: 행사/공연/축제, 25: 여행코스, 28: 레포츠, 32: 숙박, 38: 쇼핑, 39: 음식점)",
+                    example = "12",
+                    schema = @Schema(
+                            allowableValues = {
+                                    "12", "14", "15", "25", "28", "32", "38", "39"
+                            }
+                    )
             ) @RequestParam(required = false) Integer contentTypeId,
             @Parameter(
-                    description = "지역코드",
-                    example = "1"
+                    description = "지역 코드(1: 서울, 2: 인천, 3: 대전, 4: 대구, 5: 광주, 6: 부산, 7: 울산, 8: 세종특별자치시, 31: 경기도, 32: 강원도, 33: 충청북도, 34: 충청남도, 35: 경상북도, 36: 경상남도, 37: 전라북도, 38: 전라남도, 39: 제주도))",
+                    example = "1",
+                    schema = @Schema(
+                            allowableValues = {
+                                    "1", "2", "3", "4", "5", "6", "7", "8", "31", "32", "33", "34", "35", "36", "37", "38", "39"
+                            }
+                    )
             ) @RequestParam Integer areaCode,
             @Parameter(
                     description = "시군구코드",
