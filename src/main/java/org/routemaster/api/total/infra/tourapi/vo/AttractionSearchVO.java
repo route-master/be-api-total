@@ -89,6 +89,22 @@ public class AttractionSearchVO {
             this.totalCount = jsonNode.get("totalCount").asInt();
             return this;
         }
+
+        public AttractionSearchVOBuilder festivalItems(JsonNode jsonNode) {
+            this.attractions = new ArrayList<>();
+            jsonNode.get("items").get("item").forEach(item -> {
+                try {
+                    AttractionVO attractionVO = new FestivalAttractionVO(item);
+                    this.attractions.add(attractionVO);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            this.numOfRows = jsonNode.get("numOfRows").asInt();
+            this.pageNo = jsonNode.get("pageNo").asInt();
+            this.totalCount = jsonNode.get("totalCount").asInt();
+            return this;
+        }
     }
 
 }
