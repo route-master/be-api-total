@@ -13,7 +13,7 @@ public interface AttractionSearchService {
             Double mapY,
             Integer radius,
             Integer contentTypeId,
-            String modifiedtime
+            String modifiedTime
     );
 
     Mono<AttractionSearchVO> searchAreaBasedAttraction(
@@ -48,6 +48,15 @@ public interface AttractionSearchService {
             String arrange,
             String eventStartDate,
             String eventEndDate,
+            Integer areaCode,
+            Integer sigunguCode,
+            String modifiedTime
+    );
+
+    Mono<AttractionSearchVO> searchStay(
+            Integer numOfRows,
+            Integer pageNo,
+            String arrange,
             Integer areaCode,
             Integer sigunguCode,
             String modifiedTime

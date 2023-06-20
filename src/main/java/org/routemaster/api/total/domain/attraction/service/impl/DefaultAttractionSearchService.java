@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 
 @Slf4j
@@ -257,6 +256,58 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                                         .resultCode(jsonNode.get("response").get("header").get("resultCode").asText())
                                         .resultMessage(jsonNode.get("response").get("header").get("resultMsg").asText())
                                         .festivalItems(jsonNode.get("response").get("body"))
+                                        .build();
+                                return attractionSearchVO;
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+        return result;
+    }
+
+    @Override
+    public Mono<AttractionSearchVO> searchStay(
+            Integer numOfRows,
+            Integer pageNo,
+            String arrange,
+            Integer areaCode,
+            Integer sigunguCode,
+            String modifiedTime
+    ) {
+        ObjectMapper mapper = new ObjectMapper();
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(TourAPI.baseUrl);
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+        WebClient webClient = WebClient.builder()
+                .uriBuilderFactory(factory)
+                .baseUrl(TourAPI.baseUrl)
+                .build();
+        Mono<AttractionSearchVO> result = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/searchStay1")
+                        .queryParam("serviceKey", TourAPI.encodingKey)
+                        .queryParam("MobileOS", MOBILEOS)
+                        .queryParam("MobileApp", MOBILEAPP)
+                        .queryParam("_type", TYPE)
+                        .queryParam("numOfRows", numOfRows)
+                        .queryParam("pageNo", pageNo)
+                        .queryParam("listYN", LISTNY)
+                        .queryParam("arrange", arrange)
+                        .queryParam("areaCode", areaCode)
+                        .queryParam("sigunguCode", sigunguCode)
+                        .queryParam("modifiedtime", modifiedTime)
+                        .build()
+                ).accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(str -> {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            try {
+                                JsonNode jsonNode = mapper.readTree(str);
+                                AttractionSearchVO attractionSearchVO = AttractionSearchVO.builder()
+                                        .resultCode(jsonNode.get("response").get("header").get("resultCode").asText())
+                                        .resultMessage(jsonNode.get("response").get("header").get("resultMsg").asText())
+                                        .stayItems(jsonNode.get("response").get("body"))
                                         .build();
                                 return attractionSearchVO;
                             } catch (IOException e) {
