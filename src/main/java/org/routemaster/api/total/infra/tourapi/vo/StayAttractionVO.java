@@ -1,15 +1,22 @@
 package org.routemaster.api.total.infra.tourapi.vo;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.text.ParseException;
 
 public class StayAttractionVO extends AttractionVO {
 
-    private @Getter Boolean benikia;
-    private @Getter Boolean goodStay;
-    private @Getter Boolean hanok;
+    @Schema(
+            description = "베니키아 여부"
+    ) private @Getter Boolean benikia;
+    @Schema(
+            description = "굿스테이 여부"
+    ) private @Getter Boolean goodStay;
+    @Schema(
+            description = "한옥 여부"
+    ) private @Getter Boolean hanok;
 
     public StayAttractionVO(JsonNode item) throws ParseException {
         super(item);

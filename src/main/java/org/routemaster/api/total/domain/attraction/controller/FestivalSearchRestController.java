@@ -2,7 +2,10 @@ package org.routemaster.api.total.domain.attraction.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
@@ -27,6 +30,16 @@ public class FestivalSearchRestController {
             description = "행사/공연/축제 정보를 날짜로 조회하는 기능(콘텐츠 타입이 “행사/공연/축제”인 경우만 유효), 파라미터에 따라 제목순, 수정일순(최신순), 등록일순 정렬 검색을 제공",
             tags = { "attraction-search" }
     )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description= "Success Response",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AttractionSearchVO.class)
+                    )
+            )
+    })
     @GetMapping("event")
     public ResponseEntity<Mono<AttractionSearchVO>> event(
             @Parameter(
