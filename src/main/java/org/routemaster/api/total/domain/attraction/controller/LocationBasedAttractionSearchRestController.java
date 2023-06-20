@@ -28,7 +28,7 @@ public class LocationBasedAttractionSearchRestController {
 
     @Operation(
             summary = "위치 기반 관광 정보 조회",
-            description = "위치 기반 관광 정보 파라미터 타입에 따라서 정렬(제목순, 수정일순 등) 검색목록을 조회",
+            description = "위치를 기반으로 관광 정보를 조회, 파라미터에 따라 제목순, 수정일순(최신순), 등록일순 정렬 검색을 제공",
             tags = {
                     "attraction-search"
             }

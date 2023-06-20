@@ -1,5 +1,6 @@
 package org.routemaster.api.total.domain.attraction.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,11 @@ public class FestivalSearchRestController {
 
     private final AttractionSearchService attractionSearchService;
 
+    @Operation(
+            summary = "행사 정보 조회",
+            description = "행사/공연/축제 정보를 날짜로 조회하는 기능(콘텐츠 타입이 “행사/공연/축제”인 경우만 유효), 파라미터에 따라 제목순, 수정일순(최신순), 등록일순 정렬 검색을 제공",
+            tags = { "attraction-search" }
+    )
     @GetMapping("event")
     public ResponseEntity<Mono<AttractionSearchVO>> event(
             @Parameter(

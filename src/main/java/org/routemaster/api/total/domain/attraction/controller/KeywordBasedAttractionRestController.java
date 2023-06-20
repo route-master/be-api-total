@@ -28,7 +28,7 @@ public class KeywordBasedAttractionRestController {
     @Operation(
             method = "GET",
             summary = "키워드 검색 조회",
-            description = "키워드로 검색하여 관광 정보 목록을 조회",
+            description = "키워드로 검색하여 관광 정보 목록을 조회, 파라미터에 따라 제목순, 수정일순(최신순), 등록일순 정렬 검색을 제공",
             tags = {
                     "attraction-search"
             }
