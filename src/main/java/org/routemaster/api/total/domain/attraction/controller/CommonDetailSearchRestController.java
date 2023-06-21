@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/attraction-detail")
 @RequiredArgsConstructor
-public class CommonDetailInformationSearchRestController {
+public class CommonDetailSearchRestController {
 
     private final AttractionInformationSearchService service;
 
@@ -49,7 +49,7 @@ public class CommonDetailInformationSearchRestController {
                     example = "126508"
             ) @RequestParam Integer contentId
     ) {
-        Mono<AttractionSearchVO> result = service.searchAttractionDetail(
+        Mono<AttractionSearchVO> result = service.searchAttractionCommonDetail(
                 contentId
         );
         return ResponseEntity.ok(result);
