@@ -31,7 +31,7 @@ public class AirportRestController {
     @Operation(
             summary = "공항 직행 노선 조회",
             tags = {
-                    "direct-destinations",
+                    "airport",
             }
     )
     @ApiResponses({
