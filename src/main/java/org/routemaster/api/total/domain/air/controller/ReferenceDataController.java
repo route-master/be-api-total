@@ -1,7 +1,6 @@
 package org.routemaster.api.total.domain.air.controller;
 
 import com.amadeus.exceptions.ResponseException;
-import com.amadeus.resources.CheckinLink;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

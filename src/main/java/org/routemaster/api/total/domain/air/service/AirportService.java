@@ -1,5 +1,7 @@
 package org.routemaster.api.total.domain.air.service;
 
+import com.amadeus.resources.Destination;
+import com.amadeus.resources.Location;
 import org.routemaster.api.total.infra.amadeus.vo.DestinationVO;
 import org.routemaster.api.total.infra.amadeus.vo.LocationVO;
 
