@@ -11,19 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations="classpath:application-test.yml")
 class TotalApplicationTests {
 
-    final TempRestController tempRestController;
-
-    @Autowired
-    public TotalApplicationTests(TempRestController tempRestController) {
-        this.tempRestController = tempRestController;
-    }
-
     @Test
     void contextLoads() {
-    }
-
-    @Test
-    void profileLoads() {
-        assertEquals(tempRestController.temp(), "test");
     }
 }
