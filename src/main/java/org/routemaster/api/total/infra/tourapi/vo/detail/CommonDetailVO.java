@@ -1,8 +1,9 @@
-package org.routemaster.api.total.infra.tourapi.vo;
+package org.routemaster.api.total.infra.tourapi.vo.detail;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import org.routemaster.api.total.infra.tourapi.vo.attraction.AttractionVO;
 
 import java.text.ParseException;
 import java.util.Objects;

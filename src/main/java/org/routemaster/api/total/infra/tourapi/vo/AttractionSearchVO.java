@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.routemaster.api.total.infra.tourapi.vo.attraction.*;
+import org.routemaster.api.total.infra.tourapi.vo.detail.CommonDetailVO;
 
 import java.util.ArrayList;
 import java.util.List;

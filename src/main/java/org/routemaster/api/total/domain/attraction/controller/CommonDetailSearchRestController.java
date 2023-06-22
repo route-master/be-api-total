@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.routemaster.api.total.domain.attraction.service.AttractionInformationSearchService;
+import org.routemaster.api.total.domain.attraction.service.AttractionDetailSearchService;
 import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CommonDetailSearchRestController {
 
-    private final AttractionInformationSearchService service;
+    private final AttractionDetailSearchService service;
 
     @Operation(
             summary = "공통 상세 정보 조회",
