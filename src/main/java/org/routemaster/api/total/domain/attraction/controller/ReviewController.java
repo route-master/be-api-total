@@ -21,6 +21,11 @@ public class ReviewController {
     @Autowired
     private final ReviewService reviewService;
 
+    @GetMapping(value = "/find")
+    public ResponseEntity<List<ReviewDTO>> findReview(@RequestParam String contentId) {
+        return ResponseEntity.ok(reviewService.selectReview(contentId));
+    }
+
     @GetMapping(value = "/findAll")
     public ResponseEntity<List<ReviewDTO>> findAllReview() {
         return ResponseEntity.ok(reviewService.selectAllReview());

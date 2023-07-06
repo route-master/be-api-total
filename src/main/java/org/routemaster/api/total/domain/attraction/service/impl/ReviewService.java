@@ -17,6 +17,10 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
+    public List<ReviewDTO> selectReview(String contentId) {
+        return reviewRepository.findAllByContentId(contentId);
+    }
+
     public List<ReviewDTO> selectAllReview() {
         return reviewRepository.findAll();
     }
