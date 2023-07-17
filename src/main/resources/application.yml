@@ -5,6 +5,6 @@ spring:
       - dev/tour-api.yml
       - mongodb.yml
   jackson:
-    default-property-inclusion: non_null
+#    default-property-inclusion: non_null
 
 temp-string: prod

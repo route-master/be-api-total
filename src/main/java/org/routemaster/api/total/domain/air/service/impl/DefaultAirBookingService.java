@@ -4,10 +4,14 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
+import com.amadeus.resources.FlightOrder;
+import com.amadeus.resources.FlightPrice;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.air.service.AirBookingService;
 import org.routemaster.api.total.infra.amadeus.value.AmadeusValue;
 import org.routemaster.api.total.infra.amadeus.vo.FlightOfferSearchVO;
+import org.routemaster.api.total.infra.amadeus.vo.FlightOrderVO;
+import org.routemaster.api.total.infra.amadeus.vo.FlightPriceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +93,41 @@ public class DefaultAirBookingService implements AirBookingService {
                 );
             }
             return flightOfferSearchVOs;
+        } catch (ResponseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public FlightPriceVO postFlightOffersPrice(String priceFlightOffersBody, String include, Boolean forceClass) {
+        try {
+            Params params = null;
+            if (include != null) {
+                params = Params.with("include", include);
+            }
+            if (forceClass != null) {
+                if (params != null) {
+                    params.and("forceClass", forceClass);
+                } else {
+                    params = Params.with("forceClass", forceClass);
+                }
+            }
+            FlightPrice flightPrice = amadeus.shopping.flightOffersSearch.pricing.post(priceFlightOffersBody, params);
+            return FlightPriceVO.builder()
+                    .flightPrice(flightPrice)
+                    .build();
+        } catch (ResponseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public FlightOrderVO postFlightOrder(String flightOfferBody) {
+        try {
+            FlightOrder flightOrder = amadeus.booking.flightOrders.post(flightOfferBody);
+            return FlightOrderVO.builder()
+                    .flightOrder(flightOrder)
+                    .build();
         } catch (ResponseException e) {
             throw new RuntimeException(e);
         }
