@@ -4,6 +4,7 @@ spring:
       - dev/amadeus.yml
       - dev/tour-api.yml
       - mongodb.yml
+      - tour-api.yml
   jackson:
 #    default-property-inclusion: non_null
 
