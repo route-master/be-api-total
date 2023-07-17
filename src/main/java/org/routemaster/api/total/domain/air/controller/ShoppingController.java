@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.air.service.AirBookingService;
 import org.routemaster.api.total.infra.amadeus.vo.FlightOfferSearchVO;
-import org.routemaster.api.total.infra.amadeus.vo.FlightPriceVO;
+//import org.routemaster.api.total.infra.amadeus.vo.FlightPriceVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,14 +60,14 @@ public class ShoppingController {
         return new ResponseEntity<>(flightOfferSearchVOs, HttpStatus.OK);
     }
 
-    @PostMapping("/flight-offers/pricing")
-    public ResponseEntity<FlightPriceVO> postFlightOffersPrice(
-            @RequestBody String priceFlightOffersBody,
-            @RequestParam(required = false) String include,
-            @RequestParam(required = false) Boolean forceClass
-    ) {
-        FlightPriceVO flightPriceVO = airBookingService.postFlightOffersPrice(priceFlightOffersBody, include, forceClass);
-        return new ResponseEntity<>(flightPriceVO, HttpStatus.OK);
-    }
+//    @PostMapping("/flight-offers/pricing")
+//    public ResponseEntity<FlightPriceVO> postFlightOffersPrice(
+//            @RequestBody String priceFlightOffersBody,
+//            @RequestParam(required = false) String include,
+//            @RequestParam(required = false) Boolean forceClass
+//    ) {
+//        FlightPriceVO flightPriceVO = airBookingService.postFlightOffersPrice(priceFlightOffersBody, include, forceClass);
+//        return new ResponseEntity<>(flightPriceVO, HttpStatus.OK);
+//    }
 
 }
