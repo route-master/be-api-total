@@ -1,0 +1,4 @@
+tour-api:
+  end-point: ${TOUR_API_END_POINT}
+  encoding-key: ${TOUR_API_ENCODING_KEY}
+  decoding-key: ${TOUR_API_DECODING_KEY}
