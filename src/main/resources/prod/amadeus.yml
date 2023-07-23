@@ -1,0 +1,4 @@
+amadeus:
+  client-id: ${AMADEUS_CLIENT_ID}
+  client-secret: ${AMADEUS_CLIENT_SECRET}
+  hostname: ${AMADEUS_HOST_NAME}
