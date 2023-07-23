@@ -1,10 +1,9 @@
 spring:
   config:
     import:
-      - dev/amadeus.yml
-      - dev/tour-api.yml
-      - mongodb.yml
-      - tour-api.yml
+      - prod/amadeus.yml
+      - prod/datasource.yml
+      - prod/tour.yml
   jackson:
 #    default-property-inclusion: non_null
 
