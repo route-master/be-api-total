@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/attraction-detail/info")
+@RequestMapping("/attraction/detail")
 @RequiredArgsConstructor
 public class DetailSearchRestController {
 
