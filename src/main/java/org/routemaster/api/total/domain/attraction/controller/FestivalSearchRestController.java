@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/attraction-search")
+@RequestMapping("/attraction/search")
 @RequiredArgsConstructor
 public class FestivalSearchRestController {
 
