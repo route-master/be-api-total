@@ -1,7 +1,10 @@
-package org.routemaster.api.total.infra.tourapi.vo.attraction;
+package org.routemaster.api.total.domain.attraction.data.search;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;

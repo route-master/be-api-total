@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
 import org.routemaster.api.total.infra.tourapi.value.TourAPI;
-import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
+import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
