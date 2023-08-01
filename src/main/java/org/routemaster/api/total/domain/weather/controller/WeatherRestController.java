@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.routemaster.api.total.domain.weather.data.ShortForecastWeather;
 import org.routemaster.api.total.domain.weather.data.VeryShortForecastWeather;
 import org.routemaster.api.total.domain.weather.data.VeryShortLiveWeather;
 import org.routemaster.api.total.domain.weather.service.WeatherService;
@@ -38,6 +39,18 @@ public class WeatherRestController {
             @RequestParam Double longitude
     ) {
         Mono<VeryShortForecastWeather> result = weatherService.getVeryShortForecastWeather(
+                baseDate, baseTime, latitude, longitude);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/short-forecast")
+    public ResponseEntity<Mono<ShortForecastWeather>> getShortForecastWeather(
+            @RequestParam String baseDate,
+            @RequestParam String baseTime,
+            @RequestParam Double latitude,
+            @RequestParam Double longitude
+    ) {
+        Mono<ShortForecastWeather> result = weatherService.getShortForecastWeather(
                 baseDate, baseTime, latitude, longitude);
         return ResponseEntity.ok(result);
     }
