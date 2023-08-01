@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.routemaster.api.total.domain.weather.data.VeryShortForecastWeather;
 import org.routemaster.api.total.domain.weather.data.VeryShortLiveWeather;
 import org.routemaster.api.total.domain.weather.service.WeatherService;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,16 @@ public class WeatherRestController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/very-short-forecast")
+    public ResponseEntity<Mono<VeryShortForecastWeather>> getVeryShortForecastWeather(
+            @RequestParam String baseDate,
+            @RequestParam String baseTime,
+            @RequestParam Double latitude,
+            @RequestParam Double longitude
+    ) {
+        Mono<VeryShortForecastWeather> result = weatherService.getVeryShortForecastWeather(
+                baseDate, baseTime, latitude, longitude);
+        return ResponseEntity.ok(result);
+    }
 
 }
