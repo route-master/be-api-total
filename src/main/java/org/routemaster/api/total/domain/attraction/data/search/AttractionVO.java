@@ -1,4 +1,4 @@
-package org.routemaster.api.total.infra.tourapi.vo.attraction;
+package org.routemaster.api.total.domain.attraction.data.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;

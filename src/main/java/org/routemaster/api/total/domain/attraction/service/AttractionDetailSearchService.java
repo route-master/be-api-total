@@ -1,8 +1,7 @@
 package org.routemaster.api.total.domain.attraction.service;
 
-import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
-import org.routemaster.api.total.infra.tourapi.vo.detail.*;
-import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
+import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
+import org.routemaster.api.total.domain.attraction.data.detail.*;
 import reactor.core.publisher.Mono;
 
 public interface AttractionDetailSearchService {

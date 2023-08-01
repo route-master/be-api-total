@@ -1,11 +1,8 @@
-package org.routemaster.api.total.infra.tourapi.vo.detail;
+package org.routemaster.api.total.domain.attraction.data.detail;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.routemaster.api.total.infra.tourapi.vo.attraction.AttractionVO;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)

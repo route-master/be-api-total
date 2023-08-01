@@ -1,10 +1,9 @@
-package org.routemaster.api.total.infra.tourapi.vo.detail;
+package org.routemaster.api.total.domain.attraction.data.detail;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
