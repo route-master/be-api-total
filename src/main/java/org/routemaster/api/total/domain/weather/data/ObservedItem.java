@@ -1,17 +1,41 @@
 package org.routemaster.api.total.domain.weather.data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
+@Schema(
+        description = "관측 항목"
+)
 public class ObservedItem {
 
-    private String category;
-    private Double observedValue;
-    private String unit;
+    @Schema(
+            description = "관측 구분",
+            example = "기온"
+    ) private String category;
+    @Schema(
+            description = "관측 일자",
+            example = "2023-08-01"
+    ) @DateTimeFormat(pattern = "yyyy-MM-dd") private Date observedDate;
+    @Schema(
+            description = "관측 시각",
+            example = "6"
+    ) private Integer observedTime;
+    @Schema(
+            description = "관측 항목에 해당하는 관측 값",
+            example = "21"
+    ) private Double observedValue;
+    @Schema(
+            description = "관측 항목 단위",
+            example = "ºC"
+    ) private String unit;
 
     public static final class ObservedItemBuilder {
         public ObservedItemBuilder category(String category) {

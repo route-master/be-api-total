@@ -1,13 +1,16 @@
 package org.routemaster.api.total.domain.weather.data;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -15,8 +18,10 @@ import java.util.List;
 public class VeryShortForecastWeather {
 
     private WeatherResponseHeader header;
-    private String baseDate;
-    private String baseTime;
+    @Schema(
+            description = "발표 일시",
+            example = "2023-07-01 05:00"
+    ) private LocalDateTime baseDateTime;
     private Integer nx;
     private Integer ny;
     private List<ForecastItem> forecastItems;
