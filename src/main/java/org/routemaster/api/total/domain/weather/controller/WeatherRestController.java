@@ -121,12 +121,53 @@ public class WeatherRestController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(
+            summary = "단기 예보 조회",
+            description = "단기 예보 정보를 조회하기 위해 발표일자, 발표시각, 예보지점 x좌표, 예보지점 y좌표의 조회 조건으로 " +
+                    "자료구분코드, 실황값, 발표일자, 발표시각, 예보지점 x좌표, 예보지점 y좌표의 정보를 조회하는 기능",
+            tags = {
+                    "weather"
+            }
+    )
+    @ApiResponses(
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success Response",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ShortForecastWeather.class)
+                            )
+                    }
+            )
+    )
     @GetMapping("/short-forecast")
     public ResponseEntity<Mono<ShortForecastWeather>> getShortForecastWeather(
-            @RequestParam String baseDate,
-            @RequestParam String baseTime,
-            @RequestParam Double latitude,
-            @RequestParam Double longitude
+            @Parameter(
+                    required = true,
+                    description = "발표 일자(최근 1일 이내, yyyyMMdd)",
+                    example = "20230801"
+            ) @RequestParam String baseDate,
+            @Parameter(
+                    required = true,
+                    description = "발표 시간",
+                    example = "5",
+                    schema = @Schema(
+                            allowableValues = {
+                                    "2", "5", "8", "11", "14", "17", "20", "23"
+                            }
+                    )
+            ) @RequestParam Integer baseTime,
+            @Parameter(
+                    required = true,
+                    description = "위도",
+                    example = "37.63"
+            ) @RequestParam Double latitude,
+            @Parameter(
+                    required = true,
+                    description = "경도",
+                    example = "127.07"
+            ) @RequestParam Double longitude
     ) {
         Mono<ShortForecastWeather> result = weatherService.getShortForecastWeather(
                 baseDate, baseTime, latitude, longitude);
