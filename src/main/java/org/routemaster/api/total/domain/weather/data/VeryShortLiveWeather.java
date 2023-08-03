@@ -1,10 +1,17 @@
 package org.routemaster.api.total.domain.weather.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -12,14 +19,31 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
+@Schema(
+        name = "VeryShortLiveWeather",
+        description = "단기예보조회(초단기실황)"
+)
 public class VeryShortLiveWeather {
 
-    private WeatherResponseHeader header;
-    private String baseDate;
-    private String baseTime;
-    private Integer nx;
-    private Integer ny;
-    private List<ObservedItem> observedItems;
+    @Schema(
+            description = "응답 메타데이터"
+    ) private WeatherResponseHeader header;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Schema(
+            description = "발표 일시",
+            example = "2023-07-01 05:00"
+    ) private LocalDateTime baseDateTime;
+    @Schema(
+            description = "예보지점 X 좌표",
+            example = "55"
+    ) private Integer nx;
+    @Schema(
+            description = "예보지점 Y 좌표",
+            example = "127"
+    ) private Integer ny;
+    @Schema(
+            description = "예보 항목 리스트"
+    ) private List<ObservedItem> observedItems;
 
     public static final class VeryShortLiveWeatherBuilder {
 

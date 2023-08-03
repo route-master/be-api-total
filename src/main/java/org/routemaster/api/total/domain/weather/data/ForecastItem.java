@@ -1,19 +1,36 @@
 package org.routemaster.api.total.domain.weather.data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
+@Schema(
+        description = "예보 항목"
+)
 public class ForecastItem {
 
-    private String category;
-    private Double forecastDate;
-    private Double forecastTime;
-    private Double forecastValue;
-    private String unit;
+    @Schema(
+            description = "예보 구분",
+            example = "기온"
+    ) private String category;
+    @Schema(
+            description = "예보 일시",
+            example = "20230801 10:00"
+    ) private LocalDateTime forecastDateTime;
+    @Schema(
+            description = "예보 항목에 해당하는 예보 값",
+            example = "21"
+    ) private Double forecastValue;
+    @Schema(
+            description = "예보 항목 단위",
+            example = "ºC"
+    ) private String unit;
 
     public final static class ForecastItemBuilder {
         public ForecastItemBuilder category(String category) {
