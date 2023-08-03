@@ -3,6 +3,8 @@ package org.routemaster.api.total.domain.weather.data;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,20 +32,20 @@ public class ShortForecastWeather {
                     .numOfRows(jsonNode.get("response").get("body").get("numOfRows").asInt())
                     .totalCount(jsonNode.get("response").get("body").get("totalCount").asInt())
                     .build();
-            this.baseDate = jsonNode.get("response").get("body").get("items").get("item").get(0).get("baseDate").asText();
-            this.baseTime = jsonNode.get("response").get("body").get("items").get("item").get(0).get("baseTime").asText();
+            String baseDatestr = jsonNode.get("response").get("body").get("items").get("item").get(0).get("baseDate").asText();
+            String baseTimestr = jsonNode.get("response").get("body").get("items").get("item").get(0).get("baseTime").asText();
+            this.baseDateTime = LocalDateTime.parse(baseDatestr + baseTimestr, DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
             this.nx = jsonNode.get("response").get("body").get("items").get("item").get(0).get("nx").asInt();
             this.ny = jsonNode.get("response").get("body").get("items").get("item").get(0).get("ny").asInt();
             this.forecastItems = new ArrayList<>();
             jsonNode.get("response").get("body").get("items").get("item").forEach(item -> {
                 try {
-                    ForecastItem observedItem = ForecastItem.builder()
+                    ForecastItem forecastItem = ForecastItem.builder()
                             .category(item.get("category").asText())
-                            .forecastDate(item.get("fcstDate").asDouble())
-                            .forecastTime(item.get("fcstTime").asDouble())
+                            .forecastDateTime(LocalDateTime.parse(item.get("fcstDate").asText() + item.get("fcstTime").asText(), DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
                             .forecastValue(item.get("fcstValue").asDouble())
                             .build();
-                    this.forecastItems.add(observedItem);
+                    this.forecastItems.add(forecastItem);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

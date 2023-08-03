@@ -123,7 +123,7 @@ public class DefaultWeatherService implements WeatherService {
     }
 
     @Override
-    public Mono<ShortForecastWeather> getShortForecastWeather(String baseDate, String baseTime, Double latitude, Double longitude) {
+    public Mono<ShortForecastWeather> getShortForecastWeather(String baseDate, Integer baseTime, Double latitude, Double longitude) {
         gpsTransfer.setLat(latitude);
         gpsTransfer.setLng(longitude);
         gpsTransfer.transfer(gpsTransfer);
@@ -144,7 +144,7 @@ public class DefaultWeatherService implements WeatherService {
                         .queryParam("pageNo", PAGE_NO)
                         .queryParam("dataType", DATA_TYPE)
                         .queryParam("base_date", baseDate)
-                        .queryParam("base_time", baseTime)
+                        .queryParam("base_time", String.format("%02d", baseTime) + "30")
                         .queryParam("nx", gpsTransfer.getNx())
                         .queryParam("ny", gpsTransfer.getNy())
                         .build()
