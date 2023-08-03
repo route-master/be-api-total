@@ -17,6 +17,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @Slf4j
 @Service
@@ -77,7 +78,7 @@ public class DefaultWeatherService implements WeatherService {
     }
 
     @Override
-    public Mono<VeryShortForecastWeather> getVeryShortForecastWeather(String baseDate, String baseTime, Double latitude, Double longitude) {
+    public Mono<VeryShortForecastWeather> getVeryShortForecastWeather(String baseDate, Integer baseTime, Double latitude, Double longitude) {
         gpsTransfer.setLat(latitude);
         gpsTransfer.setLng(longitude);
         gpsTransfer.transfer(gpsTransfer);
@@ -98,7 +99,7 @@ public class DefaultWeatherService implements WeatherService {
                         .queryParam("pageNo", PAGE_NO)
                         .queryParam("dataType", DATA_TYPE)
                         .queryParam("base_date", baseDate)
-                        .queryParam("base_time", baseTime)
+                        .queryParam("base_time", String.format("%02d", baseTime) + "00")
                         .queryParam("nx", gpsTransfer.getNx())
                         .queryParam("ny", gpsTransfer.getNy())
                         .build()

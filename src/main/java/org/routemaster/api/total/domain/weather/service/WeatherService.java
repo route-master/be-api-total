@@ -7,8 +7,8 @@ import reactor.core.publisher.Mono;
 
 public interface WeatherService {
 
-    Mono<VeryShortForecastWeather> getVeryShortForecastWeather(String baseDate, String baseTime, Double latitude, Double longitude);
     Mono<ShortForecastWeather> getShortForecastWeather(String baseDate, String baseTime, Double latitude, Double longitude);
     Mono<VeryShortLiveWeather> getVeryShortLiveWeather(String baseDate, Integer baseTime, Double latitude, Double longitude);
+    Mono<VeryShortForecastWeather> getVeryShortForecastWeather(String baseDate, Integer baseTime, Double latitude, Double longitude);
 
 }
