@@ -30,7 +30,7 @@ public class DefaultWeatherService implements WeatherService {
     private final GpsTransfer gpsTransfer;
 
     @Override
-    public Mono<VeryShortLiveWeather> getVeryShortLiveWeather(String baseDate, String baseTime, Double latitude, Double longitude) {
+    public Mono<VeryShortLiveWeather> getVeryShortLiveWeather(String baseDate, Integer baseTime, Double latitude, Double longitude) {
         gpsTransfer.setLat(latitude);
         gpsTransfer.setLng(longitude);
         gpsTransfer.transfer(gpsTransfer);
@@ -51,7 +51,7 @@ public class DefaultWeatherService implements WeatherService {
                         .queryParam("pageNo", PAGE_NO)
                         .queryParam("dataType", DATA_TYPE)
                         .queryParam("base_date", baseDate)
-                        .queryParam("base_time", baseTime)
+                        .queryParam("base_time", String.format("%02d", baseTime) + "00")
                         .queryParam("nx", gpsTransfer.getNx())
                         .queryParam("ny", gpsTransfer.getNy())
                         .build()
@@ -68,6 +68,8 @@ public class DefaultWeatherService implements WeatherService {
                                 .build();
                         return vo;
                     } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
                 });
