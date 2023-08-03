@@ -4,6 +4,7 @@ spring:
       - prod/amadeus.yml
       - prod/datasource.yml
       - prod/tour.yml
+      - prod/weather.yml
   jackson:
 #    default-property-inclusion: non_null
 
