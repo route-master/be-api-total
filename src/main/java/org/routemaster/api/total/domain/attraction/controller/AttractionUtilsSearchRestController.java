@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/attraction/search/category")
+@RequestMapping("/attraction/search")
 @RequiredArgsConstructor
 public class AttractionUtilsSearchRestController {
 
@@ -43,7 +43,7 @@ public class AttractionUtilsSearchRestController {
                     )
             )
     })
-    @GetMapping
+    @GetMapping("/categoryCode")
     public ResponseEntity<Mono<CategorySearchResponse>> searchCategory(
             @Parameter(
                     description = "한 페이지 결과 수",
