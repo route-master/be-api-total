@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.routemaster.api.total.domain.attraction.data.utils.AreaCodeSearchResponse;
 import org.routemaster.api.total.domain.attraction.data.utils.CategorySearchResponse;
 import org.routemaster.api.total.domain.attraction.service.AttractionUtilService;
 import org.springframework.http.HttpStatus;
@@ -82,6 +83,16 @@ public class AttractionUtilsSearchRestController {
             ) @RequestParam(required = false) String smallCategory
     ) {
         Mono<CategorySearchResponse> response = service.searchCategory(numOfRows, pageNo, contentTypeId, largeCategory, mediumCategory, smallCategory);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/areaCode")
+    ResponseEntity<Mono<AreaCodeSearchResponse>> searchAreaCode(
+            @RequestParam(required = false) Integer numOfRows,
+            @RequestParam(required = false) Integer pageNo,
+            @RequestParam(required = false) Integer areaCode
+    ) {
+        Mono<AreaCodeSearchResponse> response = service.searchAreaCode(numOfRows, pageNo, areaCode);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
