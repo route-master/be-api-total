@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.attraction.data.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.data.TourApiResponseHeader;
@@ -16,8 +17,12 @@ import java.util.List;
 @ToString
 public class AreaCodeSearchResponse {
 
-    private TourApiResponseHeader header;
-    private List<AreaCodeItem> areaCodeItems;
+    @Schema(
+            description = "API 호출 결과 헤더"
+    ) private TourApiResponseHeader header;
+    @Schema(
+            description = "지역 코드 검색 결과"
+    ) private List<AreaCodeItem> areaCodeItems;
 
     public static class AreaCodeSearchResponseBuilder {
         public AreaCodeSearchResponseBuilder buildFromJsonNode(JsonNode jsonNode) {

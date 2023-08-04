@@ -86,11 +86,43 @@ public class AttractionUtilsSearchRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "지역 코드, 시군구 코드 조회",
+            description = "지역 코드, 시군구 코드 목록을 조회하는 기능",
+            tags = {
+                    "attraction-utils"
+            }
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description= "Success Response",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AreaCodeSearchResponse.class)
+                    )
+            )
+    })
     @GetMapping("/areaCode")
     ResponseEntity<Mono<AreaCodeSearchResponse>> searchAreaCode(
-            @RequestParam(required = false) Integer numOfRows,
-            @RequestParam(required = false) Integer pageNo,
-            @RequestParam(required = false) Integer areaCode
+            @Parameter(
+                    description = "한 페이지 결과 수",
+                    example = "10",
+                    schema = @Schema(
+                            defaultValue = "10"
+                    )
+            ) @RequestParam(required = false) Integer numOfRows,
+            @Parameter(
+                    description = "페이지 번호",
+                    example = "1",
+                    schema = @Schema(
+                            defaultValue = "1"
+                    )
+            ) @RequestParam(required = false) Integer pageNo,
+            @Parameter(
+                    description = "지역 코드",
+                    example = "1"
+            ) @RequestParam(required = false) Integer areaCode
     ) {
         Mono<AreaCodeSearchResponse> response = service.searchAreaCode(numOfRows, pageNo, areaCode);
         return new ResponseEntity<>(response, HttpStatus.OK);
