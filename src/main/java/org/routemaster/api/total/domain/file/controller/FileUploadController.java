@@ -1,5 +1,6 @@
 package org.routemaster.api.total.domain.file.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.domain.file.service.impl.FileUploadService;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class FileUploadController {
 
     private final FileUploadService fileUploadService;
 
+    @Operation(
+            summary = "파일 업로드",
+            description = "Google Cloud Storage에 파일 업로드",
+            tags = {"file-upload"}
+    )
     @PostMapping(value="/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> upload(@RequestPart("file") FilePart file) throws IOException {
         String url = fileUploadService.uploadFileToGCS(file);
