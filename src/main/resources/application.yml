@@ -5,6 +5,7 @@ spring:
       - prod/datasource.yml
       - prod/tour.yml
       - prod/weather.yml
+      - prod/gcs.yml
   jackson:
 #    default-property-inclusion: non_null
 
