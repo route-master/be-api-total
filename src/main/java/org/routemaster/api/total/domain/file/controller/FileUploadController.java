@@ -2,7 +2,8 @@ package org.routemaster.api.total.domain.file.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.routemaster.api.total.domain.file.service.impl.FileUploadService;
+import org.routemaster.api.total.domain.file.service.FileUploadService;
+import org.routemaster.api.total.domain.file.service.impl.DefaultFileUploadService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
