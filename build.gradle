@@ -35,7 +35,8 @@ dependencies {
     implementation files('libs/exception-1.0.0-sources.jar')
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
-//    implementation 'org.routemaster.lib:exception:1.0.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
 }
 
 tasks.named('test') {
