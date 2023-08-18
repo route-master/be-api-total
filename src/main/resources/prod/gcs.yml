@@ -2,6 +2,6 @@ cloud:
   gcp:
     storage:
       credentials:
-        location: ${GCP_STORAGE_CREDENTIALS_LOCATIONS}
+        json: ${GCP_STORAGE_CREDENTIALS_JSON}
       project-id: ${GCP_PROJECT_ID}
       bucket-name: ${GCP_STORAGE_BUCKET_NAME}
