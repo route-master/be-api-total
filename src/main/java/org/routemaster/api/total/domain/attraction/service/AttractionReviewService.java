@@ -10,3 +10,4 @@ import java.util.List;
 public interface AttractionReviewService {
 
     Flux<AttractionReview> listByContentId(String contentId);
+    Mono<AttractionReview> save(AttractionReviewSaveRequest request);

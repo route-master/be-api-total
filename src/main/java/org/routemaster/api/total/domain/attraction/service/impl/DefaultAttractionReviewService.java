@@ -24,4 +24,15 @@ public class DefaultAttractionReviewService implements AttractionReviewService {
     public Flux<AttractionReview> listByContentId(String contentId) {
         return repository.findAllByContentId(contentId);
     }
+
+    @Override
+    public Mono<AttractionReview> save(AttractionReviewSaveRequest request) {
+        return repository.save(AttractionReview.builder()
+                .userId(request.getUserId())
+                .contentId(request.getContentId())
+                .reviewComment(request.getReviewComment())
+                .imageUrl(request.getImageUrl())
+                .rating(request.getRating())
+                .build());
+    }
 }
