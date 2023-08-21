@@ -35,6 +35,18 @@ public class DefaultAttractionReviewService implements AttractionReviewService {
                 .rating(request.getRating())
                 .build());
     }
+
+    @Override
+    public Mono<AttractionReview> update(AttractionReviewSaveRequest request) {
+        return repository.findById(request.getId())
+                .flatMap(review -> {
+                    review.setReviewComment(request.getReviewComment());
+                    review.setImageUrl(request.getImageUrl());
+                    review.setRating(request.getRating());
+                    return repository.save(review);
+                });
+    }
+
     @Override
     public Mono<Void> delete(String contentId, String userId) {
         return repository.deleteAttractionReviewByContentIdAndUserId(contentId, userId);
