@@ -32,4 +32,12 @@ public class AttractionReviewRestController {
             return new ResponseEntity<>(service.update(request), HttpStatus.OK);
         }
     }
+
+    @DeleteMapping("/delete/{attractionContentId}")
+    public ResponseEntity<Mono<Void>> deleteAttractionReview(
+            @RequestParam(name = "attractionContentId") String attractionContentId,
+            @RequestParam(name = "userId") String userId
+    ) {
+        return new ResponseEntity<>(service.delete(attractionContentId, userId), HttpStatus.OK);
+    }
 }
