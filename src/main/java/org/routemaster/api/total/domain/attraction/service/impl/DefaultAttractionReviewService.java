@@ -39,4 +39,15 @@ public class DefaultAttractionReviewService implements AttractionReviewService {
     public Mono<Void> delete(String contentId, String userId) {
         return repository.deleteAttractionReviewByContentIdAndUserId(contentId, userId);
     }
+
+    @Override
+    public Mono<List<String>> listReviewImagesByContentId(String contentId) {
+        return repository.findAllByContentId(contentId)
+                .flatMap(review -> {
+                    Optional<String> imageUrl = Optional.ofNullable(review.getImageUrl());
+                    return Mono.justOrEmpty(imageUrl);
+                })
+                .collectList();
+    }
+
 }
