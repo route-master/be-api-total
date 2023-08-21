@@ -11,3 +11,4 @@ public interface AttractionReviewService {
 
     Flux<AttractionReview> listByContentId(String contentId);
     Mono<AttractionReview> save(AttractionReviewSaveRequest request);
+    Mono<Void> delete(String contentId, String userId);
