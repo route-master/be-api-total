@@ -8,3 +8,4 @@ import reactor.core.publisher.Mono;
 public interface AttractionReviewRepository extends ReactiveMongoRepository<AttractionReview, String> {
 
     Flux<AttractionReview> findAllByContentId(String contentId);
+    Mono<Void> deleteAttractionReviewByContentIdAndUserId(String contentId, String userId);
