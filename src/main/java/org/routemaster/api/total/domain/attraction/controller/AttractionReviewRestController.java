@@ -40,4 +40,9 @@ public class AttractionReviewRestController {
     ) {
         return new ResponseEntity<>(service.delete(attractionContentId, userId), HttpStatus.OK);
     }
+
+    @GetMapping("/list/reviewImages/{attractionContentId}")
+    public ResponseEntity<Mono<List<String>>> attractionReviewImagesList(@PathVariable(name = "attractionContentId") String attractionContentId) {
+        return new ResponseEntity<>(service.listReviewImagesByContentId(attractionContentId), HttpStatus.OK);
+    }
 }
