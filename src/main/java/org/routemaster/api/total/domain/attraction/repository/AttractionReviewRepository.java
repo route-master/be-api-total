@@ -8,4 +8,7 @@ import reactor.core.publisher.Mono;
 public interface AttractionReviewRepository extends ReactiveMongoRepository<AttractionReview, String> {
 
     Flux<AttractionReview> findAllByContentId(String contentId);
+    Flux<String> findImageUrlsByContentId(String contentId);
     Mono<Void> deleteAttractionReviewByContentIdAndUserId(String contentId, String userId);
+
+}
