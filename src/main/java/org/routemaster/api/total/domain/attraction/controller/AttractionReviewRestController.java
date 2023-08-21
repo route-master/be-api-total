@@ -23,4 +23,13 @@ public class AttractionReviewRestController {
     public ResponseEntity<Flux<AttractionReview>> attractionReviewList(@PathVariable(name = "attractionContentId") String attractionContentId) {
         return new ResponseEntity<>(service.listByContentId(attractionContentId), HttpStatus.OK);
     }
+
+    @PostMapping("/save")
+    public ResponseEntity<Mono<AttractionReview>> saveAttractionReview(@RequestBody AttractionReviewSaveRequest request) {
+        if (request.getId() == null) {
+            return new ResponseEntity<>(service.save(request), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(service.update(request), HttpStatus.OK);
+        }
+    }
 }
