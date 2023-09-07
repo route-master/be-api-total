@@ -36,7 +36,7 @@ public class DefaultWeatherService implements WeatherService {
         gpsTransfer.setLng(longitude);
         gpsTransfer.transfer(gpsTransfer);
 
-        final DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(WeatherAPI.baseUrl);
+        final DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(WeatherAPI.baseUrl + "/VilageFcstInfoService_2.0");
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
         WebClient webClient = WebClient.builder()
