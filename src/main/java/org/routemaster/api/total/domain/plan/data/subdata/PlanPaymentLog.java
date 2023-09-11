@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.plan.data.subdata;
 
 import java.util.Currency;
+import java.util.Locale;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,4 @@ public class PlanPaymentLog {
 
     @Field(name = "payment")
     private Double payment;
-
-    @Field(name = "currency")
-    private Currency currency;
 }
