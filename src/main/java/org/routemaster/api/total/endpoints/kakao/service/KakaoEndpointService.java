@@ -17,16 +17,16 @@ public class KakaoEndpointService {
     private final KakaoFriendService kakaoFriendService;
 
     public Mono<KakaoFriendEndpointResponse> details(KakaoFriendEndpointRequest request) {
-        KakaoFriendResponse data = kakaoFriendService.getTalkFriends(
+        Mono<KakaoFriendResponse> data = kakaoFriendService.getTalkFriends(
             request.getAccessToken(),
             request.getOffset(),
             request.getLimit(),
             request.getOrder(),
             request.getFriendOrder()
-        ).block();
+        );
 
-        return Mono.just(KakaoFriendEndpointResponse.builder()
-            .data(data)
+        return data.map(d -> KakaoFriendEndpointResponse.builder()
+            .data(d)
             .build()
         );
     }

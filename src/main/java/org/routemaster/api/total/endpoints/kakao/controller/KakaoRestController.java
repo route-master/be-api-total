@@ -3,7 +3,9 @@ package org.routemaster.api.total.endpoints.kakao.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.domain.kakao.friend.data.KakaoFriendResponse;
+import org.routemaster.api.total.endpoints.kakao.service.KakaoEndpointService;
 import org.routemaster.api.total.endpoints.kakao.vo.KakaoFriendEndpointRequest;
+import org.routemaster.api.total.endpoints.kakao.vo.KakaoFriendEndpointResponse;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +18,10 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class KakaoRestController {
 
+    private final KakaoEndpointService kakaoEndpointService;
+
     @PostMapping("/friends")
-    public Mono<KakaoFriendResponse> getFriends(@RequestBody @Validated KakaoFriendEndpointRequest request) {
-        return null;
+    public Mono<KakaoFriendEndpointResponse> getFriends(@RequestBody @Validated KakaoFriendEndpointRequest request) {
+        return kakaoEndpointService.details(request);
     }
 }

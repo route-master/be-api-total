@@ -8,12 +8,16 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.kakao.message.KakaoMessageService;
+import org.routemaster.api.total.domain.kakao.message.data.base.Link;
+import org.routemaster.api.total.domain.kakao.message.data.basic.BasicTemplateMessageResponse;
+import org.routemaster.api.total.domain.kakao.message.data.template.TextTemplate;
 import org.routemaster.api.total.domain.plan.data.PlanActivity;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentInfo;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentLog;
 import org.routemaster.api.total.domain.plan.service.PlanActivityService;
 import org.routemaster.api.total.endpoints.calculate.vo.CalculatePlanResponse;
 import org.routemaster.api.total.endpoints.calculate.vo.CalculationUnit;
+import org.routemaster.api.total.endpoints.calculate.vo.SendKakaoCalculateRequest;
 import org.routemaster.api.total.endpoints.calculate.vo.SendKakaoCalculateResponse;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -34,12 +38,16 @@ public class CalculateEndpointService {
             .build());
     }
 
-    public Mono<SendKakaoCalculateResponse> sendKakao(String planGroupId) {
-        List<PlanActivity> activities = getActivities(planGroupId);
-        List<CalculationUnit> calculated = getCalculationUnits(activities);
-
-        return Mono.just(SendKakaoCalculateResponse.builder()
-
+    public Mono<SendKakaoCalculateResponse> sendKakao(String planGroupId, SendKakaoCalculateRequest request) {
+        TextTemplate template = TextTemplate.builder()
+            .text("Trip Marker에서 정산 결과가 도착했습니다.")
+            .link(Link.builder()
+                .webUrl("http://api.route-master.org/calculate/" + planGroupId)
+                .build())
+            .build();
+        Mono<BasicTemplateMessageResponse> responseMono = kakaoMessageService.sendTextTemplate(request.getAccessToken(), request.getReceiverUuids(), template);
+        return responseMono.map(response -> SendKakaoCalculateResponse.builder()
+            .kakaoResponse(response)
             .build());
     }
 

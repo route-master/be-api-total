@@ -28,6 +28,6 @@ public class CalculateController {
 
     @PostMapping("/kakao/send")
     public Mono<SendKakaoCalculateResponse> sendCalculated(@RequestParam String planGroupId, @RequestBody @Validated SendKakaoCalculateRequest request) {
-        return null;
+        return calculateEndpointService.sendKakao(planGroupId, request);
     }
 }
