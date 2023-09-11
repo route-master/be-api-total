@@ -2,6 +2,7 @@ package org.routemaster.api.total.domain.attraction.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
 import org.routemaster.api.total.infra.tourapi.value.TourAPI;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -316,5 +318,25 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                         }
                 );
         return result;
+    }
+
+    @Override
+    public Flux<AttractionSearchVO> recommendLocationBasedAttraction(Integer mapX, Integer mapY) {
+        final List<Integer> contentTypeIds = List.of(12, 14, 15, 25, 28, 32, 38, 39);
+        Flux<AttractionSearchVO> attractionSearchVOFlux = Flux.empty();
+        for (Integer contentTypeId : contentTypeIds) {
+            Mono<AttractionSearchVO> result = searchLocationBasedAttraction(
+                    20,
+                    1,
+                    "Q",
+                    mapX.doubleValue(),
+                    mapY.doubleValue(),
+                    1000,
+                    contentTypeId,
+                    null
+            );
+            attractionSearchVOFlux.concatWith(result);
+        }
+        return attractionSearchVOFlux;
     }
 }

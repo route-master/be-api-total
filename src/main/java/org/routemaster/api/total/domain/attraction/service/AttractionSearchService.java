@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.attraction.service;
 
 import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface AttractionSearchService {
@@ -62,4 +63,8 @@ public interface AttractionSearchService {
             String modifiedTime
     );
 
+    Flux<AttractionSearchVO> recommendLocationBasedAttraction(
+        Integer mapX,
+        Integer mapY
+    );
 }
