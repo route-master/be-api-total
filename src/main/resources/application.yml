@@ -3,6 +3,7 @@ spring:
     import:
       - prod/amadeus.yml
       - prod/datasource.yml
+      - prod/jwt.yml
       - prod/tour.yml
       - prod/weather.yml
       - prod/gcs.yml

@@ -2,6 +2,7 @@ package org.routemaster.api.total.domain.plan.data.subdata;
 
 import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -21,5 +22,5 @@ public class PlanPaymentInfo {
     private Set<String> participants;
 
     @Field(name = "payment_logs")
-    List<PlanPaymentLog> paymentLogs;
+    private List<PlanPaymentLog> paymentLogs;
 }
