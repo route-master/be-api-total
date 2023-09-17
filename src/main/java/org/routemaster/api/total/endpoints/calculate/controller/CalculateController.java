@@ -1,10 +1,12 @@
 package org.routemaster.api.total.endpoints.calculate.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.endpoints.calculate.service.CalculateEndpointService;
 import org.routemaster.api.total.endpoints.calculate.vo.CalculatePlanResponse;
 import org.routemaster.api.total.endpoints.calculate.vo.SendKakaoCalculateRequest;
 import org.routemaster.api.total.endpoints.calculate.vo.SendKakaoCalculateResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,11 +24,15 @@ public class CalculateController {
     private final CalculateEndpointService calculateEndpointService;
 
     @GetMapping
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<CalculatePlanResponse> calculatePlan(@RequestParam String planGroupId) {
         return calculateEndpointService.calculatePlan(planGroupId);
     }
 
     @PostMapping("/kakao/send")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<SendKakaoCalculateResponse> sendCalculated(@RequestParam String planGroupId, @RequestBody @Validated SendKakaoCalculateRequest request) {
         return calculateEndpointService.sendKakao(planGroupId, request);
     }
