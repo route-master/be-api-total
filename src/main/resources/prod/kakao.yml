@@ -1,0 +1,4 @@
+kakao:
+  rest-api:
+    base-url: https://apis-navi.kakaomobility.com/v1
+    authorization-key: ${KAKAO_REST_API_KEY}

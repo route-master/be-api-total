@@ -1,0 +1,7 @@
+cloud:
+  gcp:
+    storage:
+      credentials:
+        json: ${GCP_STORAGE_CREDENTIALS_JSON}
+      project-id: ${GCP_PROJECT_ID}
+      bucket-name: ${GCP_STORAGE_BUCKET_NAME}

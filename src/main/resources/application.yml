@@ -6,6 +6,9 @@ spring:
       - dev/jwt.yml
       - dev/resource-server.yml
       - prod/tour.yml
+      - prod/weather.yml
+      - prod/gcs.yml
+      - prod/kakao.yml
   jackson:
 #    default-property-inclusion: non_null
 
