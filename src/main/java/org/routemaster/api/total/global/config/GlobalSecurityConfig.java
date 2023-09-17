@@ -1,15 +1,21 @@
 package org.routemaster.api.total.global.config;
 
 import lombok.RequiredArgsConstructor;
+import org.routemaster.api.total.domain.user.jwt.utils.filter.JwtAuthenticationFilter;
 import org.routemaster.api.total.infra.auth.AuthenticationManager;
 import org.routemaster.api.total.infra.auth.SecurityContextRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
+import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 
 
@@ -36,13 +42,5 @@ public class GlobalSecurityConfig {
             .authenticationManager(authenticationManager)
             .securityContextRepository(securityContextRepository)
             .build();
-    }
-
-    @Bean
-    public WebFilter jwtAuthenticationFilter(ReactiveAuthenticationManager authenticationManager,
-        ServerAuthenticationConverter authenticationConverter) {
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManager, authenticationConverter);
-        filter.setRequiresAuthenticationMatcher(ServerWebExchangeMatchers.pathMatchers("/**"));
-        return filter;
     }
 }
