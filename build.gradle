@@ -25,6 +25,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.amadeus:amadeus-java:7.0.0'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -38,6 +40,8 @@ dependencies {
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 //    implementation 'org.routemaster.lib:exception:1.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
 }
 
 ext {
@@ -48,7 +52,6 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
-}
 
 tasks.named('test') {
     useJUnitPlatform()

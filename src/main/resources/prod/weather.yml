@@ -1,0 +1,4 @@
+weather-api:
+  end-point: ${WEATHER_API_END_POINT}
+  encoding-key: ${WEATHER_API_ENCODING_KEY}
+  decoding-key: ${WEATHER_API_DECODING_KEY}

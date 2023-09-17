@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanMapInfo;
+import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentInfo;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentLog;
 import org.routemaster.api.total.global.data.BaseDocument;
 import org.springframework.data.annotation.Id;
@@ -41,7 +42,7 @@ public class PlanActivity extends BaseDocument {
     @Field(name = "end_date")
     private LocalDateTime endDate;
     @Field(name = "map_info")
-    private PlanMapInfo planMapInfo;
+    private PlanMapInfo mapInfo;
     @Field(name = "planPaymentLog")
-    private List<PlanPaymentLog> planPaymentLog;
+    private PlanPaymentInfo paymentInfo;
 }

@@ -12,7 +12,9 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
 
+
 @Configuration
+@EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 @RequiredArgsConstructor
 public class GlobalSecurityConfig {
@@ -34,5 +36,13 @@ public class GlobalSecurityConfig {
             .authenticationManager(authenticationManager)
             .securityContextRepository(securityContextRepository)
             .build();
+    }
+
+    @Bean
+    public WebFilter jwtAuthenticationFilter(ReactiveAuthenticationManager authenticationManager,
+        ServerAuthenticationConverter authenticationConverter) {
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManager, authenticationConverter);
+        filter.setRequiresAuthenticationMatcher(ServerWebExchangeMatchers.pathMatchers("/**"));
+        return filter;
     }
 }

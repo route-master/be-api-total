@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
-import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
+import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/attraction-search")
+@RequestMapping("/attraction/search")
 @RequiredArgsConstructor
 public class FestivalSearchRestController {
 
