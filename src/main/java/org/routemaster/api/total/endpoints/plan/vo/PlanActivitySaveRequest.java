@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanMapInfo;
+import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentInfo;
 import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentLog;
 
 @NoArgsConstructor
@@ -26,6 +27,6 @@ public class PlanActivitySaveRequest {
     private String thumbnailImageUrl;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
-    private PlanMapInfo planMapInfo;
-    private List<PlanPaymentLog> planPaymentLog;
+    private PlanMapInfo mapInfo;
+    private PlanPaymentInfo paymentInfo;
 }

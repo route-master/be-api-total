@@ -1,0 +1,3 @@
+resourceserver:
+  client-id: ${DEFAULT_CLIENT_ID}
+  client-secret: ${DEFAULT_CLIENT_SECRET}

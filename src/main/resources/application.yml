@@ -3,6 +3,8 @@ spring:
     import:
       - prod/amadeus.yml
       - prod/datasource.yml
+      - dev/jwt.yml
+      - dev/resource-server.yml
       - prod/tour.yml
   jackson:
 #    default-property-inclusion: non_null

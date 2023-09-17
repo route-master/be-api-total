@@ -17,8 +17,8 @@ public class PlanActivityMapper {
             .description(request.getDescription())
             .thumbnailImageUrl(request.getThumbnailImageUrl())
             .beginDate(request.getBeginDate())
-            .planMapInfo(request.getPlanMapInfo())
-            .planPaymentLog(request.getPlanPaymentLog())
+            .mapInfo(request.getMapInfo())
+            .paymentInfo(request.getPaymentInfo())
             .build();
     }
 
@@ -31,8 +31,8 @@ public class PlanActivityMapper {
             .description(request.getDescription())
             .thumbnailImageUrl(request.getThumbnailImageUrl())
             .beginDate(request.getBeginDate())
-            .planMapInfo(request.getPlanMapInfo())
-            .planPaymentLog(request.getPlanPaymentLog())
+            .mapInfo(request.getMapInfo())
+            .paymentInfo(request.getPaymentInfo())
             .build();
     }
 }
