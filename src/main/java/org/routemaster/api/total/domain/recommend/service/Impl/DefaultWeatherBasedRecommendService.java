@@ -40,13 +40,24 @@ public class DefaultWeatherBasedRecommendService implements WeatherBasedRecommen
     private final AreaCodeMappingRepository areaCodeMappingRepository;
 
     @Override
-    public Mono<Integer> getKntoAreaCode(String kmaRegionCode) {;
-        return areaCodeMappingRepository.findByKmaRegionCode(kmaRegionCode).map(AreaCodeMapping::getKntoAreaCode);
+    public Mono<List<Integer>> getKntoAreaCode(String kmaRegionCode) {
+        return areaCodeMappingRepository.findAllByKmaRegionCode(kmaRegionCode)
+                .flatMap(areaCodeMapping -> {
+                    Optional<Integer> areaCode = Optional.ofNullable(areaCodeMapping.getKntoAreaCode());
+                    return Mono.justOrEmpty(areaCode);
+                })
+                .collectList();
     }
 
     @Override
-    public Mono<Integer> getKntoSigunguCode(String kmaRegionCode) {
-        return areaCodeMappingRepository.findByKmaRegionCode(kmaRegionCode).map(AreaCodeMapping::getKntoSigunguCode);
+    public Mono<List<Integer>> getKntoSigunguCode(String kmaRegionCode) {
+        return areaCodeMappingRepository.findAllByKmaRegionCode(kmaRegionCode)
+                .flatMap(areaCodeMapping -> {
+                    Optional<Integer> sigunguCode = Optional.ofNullable(areaCodeMapping.getKntoSigunguCode());
+                    return Mono.justOrEmpty(sigunguCode);
+                })
+                .collectList();
+//        return areaCodeMappingRepository.findKntoSigunguCodeByKmaRegionCode(kmaRegionCode);
     }
 
     @Override
@@ -77,12 +88,17 @@ public class DefaultWeatherBasedRecommendService implements WeatherBasedRecommen
                 .bodyToMono(String.class)
                 .map(str -> {
                     try {
+                        getKntoAreaCode(cityAreaId).subscribe(
+//                                kntoAreaCode -> log.info("kntoAreaCode: {}", kntoAreaCode),
+//                                error -> error.printStackTrace(),
+//                                () -> log.info("complete")
+                        );
                         List<TourismClimateIndexItem> tourismClimateIndexItemList = new ArrayList<>();
                         JsonNode jsonNode = mapper.readTree(str);
                         jsonNode = jsonNode.get("response").get("body").get("items").get("item");
                         for (JsonNode node : jsonNode) {
                             String kmaRegionCode = node.get("cityAreaId").asText();
-                            Mono<Integer> kntoAreaCode = getKntoAreaCode(kmaRegionCode);
+//                            Mono<Integer> kntoAreaCode = getKntoAreaCode(kmaRegionCode);
                             TourismClimateIndexItem vo = TourismClimateIndexItem.builder()
                                     .buildFromJsonNode(node)
                                     .build();

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WeatherBasedRecommendService {
-    Mono<Integer> getKntoAreaCode(String kmaRegionCode);
-    Mono<Integer> getKntoSigunguCode(String kmaRegionCode);
+    Mono<List<Integer>> getKntoAreaCode(String kmaRegionCode);
+    Mono<List<Integer>> getKntoSigunguCode(String kmaRegionCode);
     Mono<List<TourismClimateIndexItem>> getTourismClimateIndex(String date, String day, String cityAreaId);
 }
