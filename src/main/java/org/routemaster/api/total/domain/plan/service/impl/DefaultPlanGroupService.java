@@ -2,13 +2,12 @@ package org.routemaster.api.total.domain.plan.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.routemaster.api.total.domain.plan.data.PlanActivity;
 import org.routemaster.api.total.domain.plan.data.PlanGroup;
 import org.routemaster.api.total.domain.plan.persistence.PlanGroupRepository;
 import org.routemaster.api.total.domain.plan.service.PlanGroupService;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -27,8 +26,8 @@ public class DefaultPlanGroupService implements PlanGroupService {
     }
 
     @Override
-    public Flux<PlanGroup> list(String username, Sort sort) {
-        return repository.findAllByWriterOrParticipantsIn(username, new ArrayList<>(Arrays.asList(username)), sort);
+    public Flux<PlanGroup> list(String username) {
+        return repository.findAllByWriterOrParticipantsInOrderByBeginDate(username, List.of(username));
     }
 
     @Override

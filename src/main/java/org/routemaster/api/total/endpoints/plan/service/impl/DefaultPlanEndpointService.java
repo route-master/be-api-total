@@ -35,8 +35,8 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     private final PlanActivityCommentMapper commentMapper;
 
     @Override
-    public Flux<PlanGroup> planGroupList(String username, Sort sort) {
-        return groupService.list(username, sort);
+    public Flux<PlanGroup> planGroupList(String username) {
+        return groupService.list(username);
     }
 
     @Override

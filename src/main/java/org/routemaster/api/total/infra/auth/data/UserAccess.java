@@ -7,6 +7,6 @@ public record UserAccess(
     String baseUserId,
     Boolean birthDate,
     Boolean profileImageUrl,
-    LocalDateTime createdAt,
-    LocalDateTime updatedAt
+    String createdAt,
+    String updatedAt
 ) {}
