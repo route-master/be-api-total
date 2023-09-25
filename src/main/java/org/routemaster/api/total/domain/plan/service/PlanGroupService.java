@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 public interface PlanGroupService {
 
     Mono<PlanGroup> details(String id);
-    Flux<PlanGroup> list(String username, Sort sort);
+    Flux<PlanGroup> list(String username);
     Mono<PlanGroup> save(PlanGroup entity);
     void delete(String id);
 }

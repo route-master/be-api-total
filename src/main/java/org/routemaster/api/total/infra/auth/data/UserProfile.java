@@ -8,10 +8,10 @@ public record UserProfile(
     String id,
     String baseUserId,
     String nickname,
-    LocalDateTime birthDate,
+    String birthDate,
     String profileImageUrl,
-    LocalDateTime createdAt,
-    LocalDateTime updatedAt,
+    String createdAt,
+    String updatedAt,
     AccessType accessType
 ) {
     public enum AccessType {

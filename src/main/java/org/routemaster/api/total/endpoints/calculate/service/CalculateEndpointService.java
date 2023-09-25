@@ -61,8 +61,9 @@ public class CalculateEndpointService {
         Map<String, Map<String, Double>> calcMap = new HashMap<>();
         for (PlanActivity activity : activities) {
             PlanPaymentInfo paymentInfo = activity.getPaymentInfo();
-            Set<String> participants = paymentInfo.getParticipants();
+
             for (PlanPaymentLog paymentLog : paymentInfo.getPaymentLogs()) {
+                Set<String> participants = paymentLog.getParticipants();
                 String paid = paymentLog.getPaid();
                 Double payment = paymentLog.getPayment();
 

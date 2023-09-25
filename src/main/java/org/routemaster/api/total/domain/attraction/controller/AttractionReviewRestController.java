@@ -4,13 +4,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.domain.attraction.data.review.AttractionReview;
 import org.routemaster.api.total.domain.attraction.data.review.AttractionReviewSaveRequest;
 import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.routemaster.api.total.domain.attraction.service.AttractionReviewService;
+import org.routemaster.api.total.infra.auth.SecurityContextRepository;
+import org.routemaster.api.total.infra.auth.data.BaseUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -80,11 +84,13 @@ public class AttractionReviewRestController {
             }
     )
     @DeleteMapping("/delete/{attractionContentId}")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Mono<Void>> deleteAttractionReview(
             @RequestParam(name = "attractionContentId") String attractionContentId,
-            @RequestParam(name = "userId") String userId
+            @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser
     ) {
-        return new ResponseEntity<>(service.delete(attractionContentId, userId), HttpStatus.OK);
+        return new ResponseEntity<>(service.delete(attractionContentId, baseUser.payload().baseUserId()), HttpStatus.OK);
     }
 
     @Operation(

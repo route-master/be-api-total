@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "UserFeignClient", url = "http://auth.route-master.org//v1")
+@FeignClient(name = "UserFeignClient", url = "http://auth.route-master.org/v1")
 public interface UserFeignClient {
 
     @GetMapping("/user/info/profile/{baseUserId}")

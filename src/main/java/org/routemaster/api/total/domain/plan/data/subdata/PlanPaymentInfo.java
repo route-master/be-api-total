@@ -18,9 +18,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 public class PlanPaymentInfo {
 
-    @Field(name = "participants")
-    private Set<String> participants;
-
     @Field(name = "payment_logs")
     private List<PlanPaymentLog> paymentLogs;
 }
