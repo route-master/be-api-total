@@ -1,5 +1,6 @@
 package org.routemaster.api.total.endpoints.plan.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,7 @@ public class PlanRestController {
 
     private final PlanEndpointService service;
 
+    @Operation(summary = "여행 계획 목록 조회")
     @GetMapping("/group")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -44,6 +46,7 @@ public class PlanRestController {
         return service.planGroupList(baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 계획 생성")
     @PostMapping("/group")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -53,6 +56,7 @@ public class PlanRestController {
         return service.savePlanGroup(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 계획 참가")
     @PostMapping("/group/{id}/invite")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -62,6 +66,7 @@ public class PlanRestController {
         return service.inviteGroup(id, invite, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 멤버 탈퇴")
     @PostMapping("/group/{id}/exit")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -71,6 +76,7 @@ public class PlanRestController {
         return service.exitGroup(id, exit, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 삭제")
     @DeleteMapping("/group/{id}")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -81,6 +87,7 @@ public class PlanRestController {
     }
 
 
+    @Operation(summary = "여행 액티비티 목록 조회")
     @GetMapping("/activity/list")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -89,6 +96,7 @@ public class PlanRestController {
         return service.planActivityList(planGroupId, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티 생성")
     @PostMapping("/activity")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -98,6 +106,7 @@ public class PlanRestController {
         return service.savePlanActivity(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티 삭제")
     @DeleteMapping("/activity/{id}")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -107,6 +116,7 @@ public class PlanRestController {
         return Mono.empty();
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 목록 조회")
     @GetMapping("/activity/{planActivityId}/comment")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -116,6 +126,7 @@ public class PlanRestController {
         return service.planCommentList(planActivityId, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 생성")
     @PostMapping("/activity/comment")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -125,6 +136,7 @@ public class PlanRestController {
         return service.savePlanComment(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 삭제")
     @DeleteMapping("/activity/comment/{id}")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
