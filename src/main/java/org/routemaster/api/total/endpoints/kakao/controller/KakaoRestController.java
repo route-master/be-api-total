@@ -1,6 +1,7 @@
 package org.routemaster.api.total.endpoints.kakao.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.domain.kakao.friend.data.KakaoFriendResponse;
@@ -22,6 +23,7 @@ public class KakaoRestController {
 
     private final KakaoEndpointService kakaoEndpointService;
 
+    @Operation(summary = "카카오 친구 목록 조회")
     @PostMapping("/friends")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")

@@ -1,5 +1,6 @@
 package org.routemaster.api.total.endpoints.calculate.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.routemaster.api.total.endpoints.calculate.service.CalculateEndpointService;
@@ -23,6 +24,7 @@ public class CalculateController {
 
     private final CalculateEndpointService calculateEndpointService;
 
+    @Operation(summary = "여행 계획 그룹별 예산 계산")
     @GetMapping
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -30,6 +32,7 @@ public class CalculateController {
         return calculateEndpointService.calculatePlan(planGroupId);
     }
 
+    @Operation(summary = "카카오 메시지 전송")
     @PostMapping("/kakao/send")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")

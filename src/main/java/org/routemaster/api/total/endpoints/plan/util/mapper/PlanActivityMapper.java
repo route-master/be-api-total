@@ -19,6 +19,9 @@ public class PlanActivityMapper {
             .beginDate(request.getBeginDate())
             .mapInfo(request.getMapInfo())
             .paymentInfo(request.getPaymentInfo())
+            .activityType(request.getActivityType())
+            .referenceType(request.getReferenceType())
+            .referenceId(request.getReferenceId())
             .build();
     }
 
@@ -33,6 +36,9 @@ public class PlanActivityMapper {
             .beginDate(request.getBeginDate())
             .mapInfo(request.getMapInfo())
             .paymentInfo(request.getPaymentInfo())
+            .activityType(request.getActivityType())
+            .referenceType(request.getReferenceType())
+            .referenceId(request.getReferenceId())
             .build();
     }
 }
