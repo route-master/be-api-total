@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.plan.data;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,13 +21,17 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 public class PlanActivityComment extends BaseDocument {
 
+    @Schema(description = "플랜 액티비티 댓글 ID")
     @Id
     private String id;
+    @Schema(description = "플랜 액티비티 ID")
     @Indexed
     @Field(name = "plan_activity_id")
     private String planActivityId;
+    @Schema(description = "플랜 액티비티 댓글 작성자")
     @Field(name = "writer")
     private String writer;
+    @Schema(description = "플랜 액티비티 댓글 내용")
     @Field(name = "description")
     private String description;
 }
