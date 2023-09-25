@@ -45,4 +45,21 @@ public class PlanActivity extends BaseDocument {
     private PlanMapInfo mapInfo;
     @Field(name = "planPaymentLog")
     private PlanPaymentInfo paymentInfo;
+    @Field(name = "activityType")
+    private ActivityType activityType;
+    @Field(name = "referenceType")
+    private ReferenceType referenceType;
+    @Field(name = "referenceId")
+    private String referenceId;
+
+    public enum ActivityType {
+        HOTEL,
+        RESTAURANT,
+        ACTIVITY,
+    }
+
+    public enum ReferenceType {
+        TOUR_API,
+        KAKAO_MAP,
+    }
 }
