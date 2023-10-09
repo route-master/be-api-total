@@ -9,6 +9,7 @@ import org.routemaster.api.total.domain.plan.data.PlanActivityComment;
 import org.routemaster.api.total.domain.plan.data.PlanGroup;
 import org.routemaster.api.total.endpoints.plan.service.PlanEndpointService;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivityCommentSaveRequest;
+import org.routemaster.api.total.endpoints.plan.vo.PlanActivityPaymentSaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivitySaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanGroupSaveRequest;
 import org.routemaster.api.total.infra.auth.SecurityContextRepository;
@@ -104,6 +105,16 @@ public class PlanRestController {
         @RequestBody PlanActivitySaveRequest request,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.savePlanActivity(request, baseUser.payload().baseUserId());
+    }
+
+    @Operation(summary = "여행 액티비티 결제 내역 수정")
+    @PostMapping("/activity/payment")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanActivity> savePlanActivity(
+        @RequestBody PlanActivityPaymentSaveRequest request,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.savePlanActivityPayment(request, baseUser.payload().baseUserId());
     }
 
     @Operation(summary = "여행 액티비티 삭제")

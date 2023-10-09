@@ -1,27 +1,47 @@
 package org.routemaster.api.total.domain.recommend.controller;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
+import org.routemaster.api.total.domain.recommend.data.TourismClimateIndexItem;
+import org.routemaster.api.total.domain.recommend.service.WeatherBasedRecommendService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @RestController
-@RequestMapping("/recommend/age-based")
+@RequestMapping("/recommend")
 @RequiredArgsConstructor
-public class AgeBasedRecommendRestController {
+public class RecommendRestController {
 
     private final AttractionSearchService attractionSearchService;
+    private final WeatherBasedRecommendService service;
 
-    @GetMapping
+    @GetMapping("/location-based")
+    public Flux<AttractionSearchVO> locationBased(
+        @RequestParam Integer mapX,
+        @RequestParam Integer mapY
+    ) {
+        return attractionSearchService.recommendLocationBasedAttraction(mapX, mapY);
+    }
+
+    @GetMapping("/weather-based/tourism-climate-index")
+    public ResponseEntity<Mono<List<TourismClimateIndexItem>>> getTourismClimateIndex(
+        @RequestParam(required = false) String date,
+        @RequestParam(required = false) String day,
+        @RequestParam(required = false) String cityAreaId
+    ) {
+        return ResponseEntity.ok(service.getTourismClimateIndex(date, day, cityAreaId));
+    }
+
+    @GetMapping("/age-based")
     public ResponseEntity<Mono<AttractionSearchVO>> recommendAttractionByAge(
-            @RequestParam Integer age
+        @RequestParam Integer age
     ) {
         Integer recommendAreaCode = 1;
         Integer recommendContentTypeId = null;
@@ -46,23 +66,17 @@ public class AgeBasedRecommendRestController {
             recommendLargeCategory = "A01";
         }
 
-        log.info("recommendAreaCode: {}", recommendAreaCode);
-        log.info("recommendContentTypeId: {}", recommendContentTypeId);
-        log.info("recommendLargeCategory: {}", recommendLargeCategory);
-        log.info("recommendMediumCategory: {}", recommendMediumCategory);
-        log.info("recommendSmallCategory: {}", recommendSmallCategory);
-
         return ResponseEntity.ok(
-                attractionSearchService.searchAreaBasedAttraction(10,
-                        1,
-                        "C",
-                        recommendContentTypeId,
-                        recommendAreaCode,
-                        null,
-                        recommendLargeCategory,
-                        recommendMediumCategory,
-                        recommendSmallCategory,
-                        null)
+            attractionSearchService.searchAreaBasedAttraction(10,
+                1,
+                "C",
+                recommendContentTypeId,
+                recommendAreaCode,
+                null,
+                recommendLargeCategory,
+                recommendMediumCategory,
+                recommendSmallCategory,
+                null)
         );
     }
 }
