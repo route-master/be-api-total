@@ -1,8 +1,9 @@
 package org.routemaster.api.total.domain.attraction.service;
 
-import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
-import reactor.core.publisher.Flux;
+import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
+
 
 public interface AttractionSearchService {
 

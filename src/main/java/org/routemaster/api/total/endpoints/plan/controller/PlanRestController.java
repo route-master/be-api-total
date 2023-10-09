@@ -1,6 +1,9 @@
 package org.routemaster.api.total.endpoints.plan.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.plan.data.PlanActivity;
 import org.routemaster.api.total.domain.plan.data.PlanActivityComment;
 import org.routemaster.api.total.domain.plan.data.PlanGroup;
@@ -8,13 +11,17 @@ import org.routemaster.api.total.endpoints.plan.service.PlanEndpointService;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivityCommentSaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivitySaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanGroupSaveRequest;
+import org.routemaster.api.total.infra.auth.SecurityContextRepository;
+import org.routemaster.api.total.infra.auth.data.BaseUser;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @RestController
 @RequestMapping("/plan")
 @RequiredArgsConstructor
@@ -29,63 +37,113 @@ public class PlanRestController {
 
     private final PlanEndpointService service;
 
+    @Operation(summary = "여행 계획 목록 조회")
     @GetMapping("/group")
-    public ResponseEntity<Flux<PlanGroup>> planGroupList(@RequestParam Sort sort, @RequestParam String username) {
-        return new ResponseEntity<>(service.planGroupList(username, sort), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Flux<PlanGroup> planGroupList(@RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        log.info("baseUser: {}", baseUser);
+        return service.planGroupList(baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 계획 생성")
     @PostMapping("/group")
-    public ResponseEntity<Mono<PlanGroup>> savePlanGroup(@RequestBody PlanGroupSaveRequest request, @RequestParam String username) {
-        return new ResponseEntity<>(service.savePlanGroup(request, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanGroup> savePlanGroup(@RequestBody PlanGroupSaveRequest request,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser
+    ) {
+        return service.savePlanGroup(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 계획 참가")
     @PostMapping("/group/{id}/invite")
-    public ResponseEntity<Mono<PlanGroup>> inviteGroup(@PathVariable String id, @RequestParam String invite, @RequestParam String username) {
-        return new ResponseEntity<>(service.inviteGroup(id, invite, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanGroup> inviteGroup(@PathVariable String id,
+        @RequestParam String invite,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.inviteGroup(id, invite, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 멤버 탈퇴")
     @PostMapping("/group/{id}/exit")
-    public ResponseEntity<Mono<PlanGroup>> exitGroup(@PathVariable String id,  @RequestParam String exit, @RequestParam String username) {
-        return new ResponseEntity<>(service.exitGroup(id, exit, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanGroup> exitGroup(@PathVariable String id,
+        @RequestParam String exit,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.exitGroup(id, exit, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 삭제")
     @DeleteMapping("/group/{id}")
-    public ResponseEntity<Void> deletePlanGroup(@PathVariable String id, @RequestParam String username) {
-        service.deletePlanGroup(id, username);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<Void> deletePlanGroup(@PathVariable String id,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        service.deletePlanGroup(id, baseUser.payload().baseUserId());
+        return Mono.empty();
     }
 
 
+    @Operation(summary = "여행 액티비티 목록 조회")
     @GetMapping("/activity/list")
-    public ResponseEntity<Flux<PlanActivity>> planActivityList(@RequestParam String planGroupId, @RequestParam String username) {
-        return new ResponseEntity<>(service.planActivityList(planGroupId, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Flux<PlanActivity> planActivityList(@RequestParam String planGroupId,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.planActivityList(planGroupId, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티 생성")
     @PostMapping("/activity")
-    public ResponseEntity<Mono<PlanActivity>> savePlanActivity(@RequestBody PlanActivitySaveRequest request, @RequestParam String username) {
-        return new ResponseEntity<>(service.savePlanActivity(request, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanActivity> savePlanActivity(
+        @RequestBody PlanActivitySaveRequest request,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.savePlanActivity(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티 삭제")
     @DeleteMapping("/activity/{id}")
-    public ResponseEntity<Void> deletePlanActivity(@PathVariable String id, @RequestParam String username) {
-        service.deletePlanActivity(id, username);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<Void> deletePlanActivity(@PathVariable String id,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        service.deletePlanActivity(id, baseUser.payload().baseUserId());
+        return Mono.empty();
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 목록 조회")
     @GetMapping("/activity/{planActivityId}/comment")
-    public ResponseEntity<Flux<PlanActivityComment>> planCommentList(@PathVariable String planActivityId, @RequestParam String username) {
-        return new ResponseEntity<>(service.planCommentList(planActivityId, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Flux<PlanActivityComment> planCommentList(
+        @PathVariable String planActivityId,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.planCommentList(planActivityId, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 생성")
     @PostMapping("/activity/comment")
-    public ResponseEntity<Mono<PlanActivityComment>> savePlanComment(@RequestBody
-        PlanActivityCommentSaveRequest request, @RequestParam String username) {
-        return new ResponseEntity<>(service.savePlanComment(request, username), HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanActivityComment> savePlanComment(
+        @RequestBody PlanActivityCommentSaveRequest request,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.savePlanComment(request, baseUser.payload().baseUserId());
     }
 
+    @Operation(summary = "여행 액티비티의 댓글 삭제")
     @DeleteMapping("/activity/comment/{id}")
-    public ResponseEntity<Void> deletePlanComment(@PathVariable String id, @RequestParam String username) {
-        service.deletePlanComment(id, username);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<Void> deletePlanComment(
+        @PathVariable String id,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        service.deletePlanComment(id, baseUser.payload().baseUserId());
+        return Mono.empty();
     }
 }

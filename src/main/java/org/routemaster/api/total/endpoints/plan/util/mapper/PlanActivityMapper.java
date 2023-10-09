@@ -17,8 +17,11 @@ public class PlanActivityMapper {
             .description(request.getDescription())
             .thumbnailImageUrl(request.getThumbnailImageUrl())
             .beginDate(request.getBeginDate())
-            .planMapInfo(request.getPlanMapInfo())
-            .planPaymentLog(request.getPlanPaymentLog())
+            .mapInfo(request.getMapInfo())
+            .paymentInfo(request.getPaymentInfo())
+            .activityType(request.getActivityType())
+            .referenceType(request.getReferenceType())
+            .referenceId(request.getReferenceId())
             .build();
     }
 
@@ -31,8 +34,11 @@ public class PlanActivityMapper {
             .description(request.getDescription())
             .thumbnailImageUrl(request.getThumbnailImageUrl())
             .beginDate(request.getBeginDate())
-            .planMapInfo(request.getPlanMapInfo())
-            .planPaymentLog(request.getPlanPaymentLog())
+            .mapInfo(request.getMapInfo())
+            .paymentInfo(request.getPaymentInfo())
+            .activityType(request.getActivityType())
+            .referenceType(request.getReferenceType())
+            .referenceId(request.getReferenceId())
             .build();
     }
 }

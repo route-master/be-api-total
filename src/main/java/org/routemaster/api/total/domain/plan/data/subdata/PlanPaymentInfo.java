@@ -2,6 +2,7 @@ package org.routemaster.api.total.domain.plan.data.subdata;
 
 import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -17,9 +18,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 public class PlanPaymentInfo {
 
-    @Field(name = "participants")
-    private Set<String> participants;
-
     @Field(name = "payment_logs")
-    List<PlanPaymentLog> paymentLogs;
+    private List<PlanPaymentLog> paymentLogs;
 }
