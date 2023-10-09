@@ -1,8 +1,8 @@
 package org.routemaster.api.total.domain.attraction.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.routemaster.api.total.domain.attraction.service.AttractionSearchService;
-import org.routemaster.api.total.infra.tourapi.vo.AttractionSearchVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
