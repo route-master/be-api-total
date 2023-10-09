@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 public interface PlanEndpointService {
 
+    Mono<PlanGroup> planGroup(String id, String username);
     Flux<PlanGroup> planGroupList(String username);
     Mono<PlanGroup> savePlanGroup(PlanGroupSaveRequest request, String username);
     Mono<PlanGroup> inviteGroup(String id, String invite, String username);
