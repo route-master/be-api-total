@@ -14,6 +14,7 @@ import org.routemaster.api.total.endpoints.plan.util.mapper.PlanActivityCommentM
 import org.routemaster.api.total.endpoints.plan.util.mapper.PlanActivityMapper;
 import org.routemaster.api.total.endpoints.plan.util.mapper.PlanGroupMapper;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivityCommentSaveRequest;
+import org.routemaster.api.total.endpoints.plan.vo.PlanActivityPaymentSaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanActivitySaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanGroupSaveRequest;
 import org.springframework.data.domain.Sort;
@@ -84,6 +85,12 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
             return activityService.save(activityMapper.update(prev, request));
         }
         return activityService.save(activityMapper.insert(request, username));
+    }
+
+    @Override
+    public Mono<PlanActivity> savePlanActivityPayment(
+        PlanActivityPaymentSaveRequest request, String username) {
+        return activityService.save(request.id(), request.paymentInfo());
     }
 
     @Override

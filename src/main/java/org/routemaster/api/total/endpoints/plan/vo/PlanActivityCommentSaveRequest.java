@@ -22,7 +22,6 @@ public class PlanActivityCommentSaveRequest {
     @NotNull
     private String planActivityId;
 
-
     @Schema(description = "댓글 내용", requiredMode = RequiredMode.REQUIRED)
     @Length(min = 1)
     @NotNull
