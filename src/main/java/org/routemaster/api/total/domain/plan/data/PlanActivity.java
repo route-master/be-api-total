@@ -65,6 +65,10 @@ public class PlanActivity extends BaseDocument {
     @Field(name = "referenceId")
     private String referenceId;
 
+    public void setPlanPaymentInfo(PlanPaymentInfo planPaymentInfo) {
+        this.paymentInfo = planPaymentInfo;
+    }
+
     public enum ActivityType {
         HOTEL,
         RESTAURANT,

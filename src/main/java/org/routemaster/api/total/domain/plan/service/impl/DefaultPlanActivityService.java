@@ -3,6 +3,8 @@ package org.routemaster.api.total.domain.plan.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.routemaster.api.total.domain.plan.data.PlanActivity;
+import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentInfo;
+import org.routemaster.api.total.domain.plan.data.subdata.PlanPaymentLog;
 import org.routemaster.api.total.domain.plan.persistence.PlanActivityRepository;
 import org.routemaster.api.total.domain.plan.service.PlanActivityService;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,16 @@ public class DefaultPlanActivityService implements PlanActivityService {
     @Transactional
     public Mono<PlanActivity> save(PlanActivity entity) {
         return repository.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public Mono<PlanActivity> save(String id, PlanPaymentInfo planPaymentInfo) {
+        Mono<PlanActivity> origin = details(id);
+        return origin.map(planActivity -> {
+            planActivity.setPlanPaymentInfo(planPaymentInfo);
+            return planActivity;
+        }).flatMap(repository::save);
     }
 
     @Override
