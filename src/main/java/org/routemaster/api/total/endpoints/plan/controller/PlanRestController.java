@@ -38,6 +38,15 @@ public class PlanRestController {
 
     private final PlanEndpointService service;
 
+    @Operation(summary = "여행 계획 상세 조회")
+    @GetMapping("/group/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Mono<PlanGroup> planGroup(@PathVariable String id,
+        @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
+        return service.planGroup(id, baseUser.payload().baseUserId());
+    }
+
     @Operation(summary = "여행 계획 목록 조회")
     @GetMapping("/group")
     @SecurityRequirement(name = "Bearer Authentication")

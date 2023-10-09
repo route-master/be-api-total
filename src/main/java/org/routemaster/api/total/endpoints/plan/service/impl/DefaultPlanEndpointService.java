@@ -36,6 +36,12 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     private final PlanActivityCommentMapper commentMapper;
 
     @Override
+    public Mono<PlanGroup> planGroup(String id, String username) {
+        Mono<PlanGroup> details = groupService.details(id);
+        return details.filter(group -> group.getParticipants().contains(username));
+    }
+
+    @Override
     public Flux<PlanGroup> planGroupList(String username) {
         return groupService.list(username);
     }
