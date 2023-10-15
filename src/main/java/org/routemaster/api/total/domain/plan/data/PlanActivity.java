@@ -73,6 +73,7 @@ public class PlanActivity extends BaseDocument {
         HOTEL,
         RESTAURANT,
         ACTIVITY,
+        UNKNOWN,
     }
 
     public enum ReferenceType {
