@@ -65,7 +65,7 @@ public interface AttractionSearchService {
     );
 
     Flux<AttractionSearchVO> recommendLocationBasedAttraction(
-        Integer mapX,
-        Integer mapY
+        Double mapX,
+        Double mapY
     );
 }

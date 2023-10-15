@@ -321,7 +321,7 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
     }
 
     @Override
-    public Flux<AttractionSearchVO> recommendLocationBasedAttraction(Integer mapX, Integer mapY) {
+    public Flux<AttractionSearchVO> recommendLocationBasedAttraction(Double mapX, Double mapY) {
         final List<Integer> contentTypeIds = List.of(12, 14, 15, 25, 28, 32, 38, 39);
         Flux<AttractionSearchVO> attractionSearchVOFlux = Flux.empty();
         for (Integer contentTypeId : contentTypeIds) {
@@ -329,8 +329,8 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                     20,
                     1,
                     "Q",
-                    mapX.doubleValue(),
-                    mapY.doubleValue(),
+                    mapX,
+                    mapY,
                     1000,
                     contentTypeId,
                     null
