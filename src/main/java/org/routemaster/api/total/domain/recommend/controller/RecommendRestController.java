@@ -24,8 +24,8 @@ public class RecommendRestController {
 
     @GetMapping("/location-based")
     public Flux<AttractionSearchVO> locationBased(
-        @RequestParam Integer mapX,
-        @RequestParam Integer mapY
+        @RequestParam Double mapX,
+        @RequestParam Double mapY
     ) {
         return attractionSearchService.recommendLocationBasedAttraction(mapX, mapY);
     }
