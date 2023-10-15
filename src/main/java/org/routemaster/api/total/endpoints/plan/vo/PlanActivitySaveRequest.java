@@ -31,8 +31,7 @@ public class PlanActivitySaveRequest {
     @NotNull
     @Length(min = 1)
     private String name;
-    @Schema(description = "플랜 액티비티 설명", requiredMode = RequiredMode.REQUIRED)
-    @NotNull
+    @Schema(description = "플랜 액티비티 설명", requiredMode = RequiredMode.AUTO)
     @Length(min = 1)
     private String description;
 
@@ -45,9 +44,9 @@ public class PlanActivitySaveRequest {
     @Schema(description = "플랜 액티비티 종료 시간", requiredMode = RequiredMode.REQUIRED)
     @NotNull
     private LocalDateTime endDate;
-    @Schema(description = "플랜 액티비티 맵 정보", requiredMode = RequiredMode.REQUIRED)
+    @Schema(description = "플랜 액티비티 맵 정보", requiredMode = RequiredMode.AUTO)
     private PlanMapInfo mapInfo;
-    @Schema(description = "플랜 액티비티 결제 정보", requiredMode = RequiredMode.REQUIRED)
+    @Schema(description = "플랜 액티비티 결제 정보", requiredMode = RequiredMode.AUTO)
     private PlanPaymentInfo paymentInfo;
     @Schema(description = "플랜 액티비티 타입", requiredMode = RequiredMode.REQUIRED)
     @NotNull

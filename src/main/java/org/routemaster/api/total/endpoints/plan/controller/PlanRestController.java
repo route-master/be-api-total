@@ -14,10 +14,8 @@ import org.routemaster.api.total.endpoints.plan.vo.PlanActivitySaveRequest;
 import org.routemaster.api.total.endpoints.plan.vo.PlanGroupSaveRequest;
 import org.routemaster.api.total.infra.auth.SecurityContextRepository;
 import org.routemaster.api.total.infra.auth.data.BaseUser;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +58,7 @@ public class PlanRestController {
     @PostMapping("/group")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Mono<PlanGroup> savePlanGroup(@RequestBody PlanGroupSaveRequest request,
+    public Mono<PlanGroup> savePlanGroup(@RequestBody @Validated PlanGroupSaveRequest request,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser
     ) {
         return service.savePlanGroup(request, baseUser.payload().baseUserId());
@@ -111,7 +109,7 @@ public class PlanRestController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<PlanActivity> savePlanActivity(
-        @RequestBody PlanActivitySaveRequest request,
+        @RequestBody @Validated PlanActivitySaveRequest request,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.savePlanActivity(request, baseUser.payload().baseUserId());
     }
@@ -121,7 +119,7 @@ public class PlanRestController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<PlanActivity> savePlanActivity(
-        @RequestBody PlanActivityPaymentSaveRequest request,
+        @RequestBody @Validated PlanActivityPaymentSaveRequest request,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.savePlanActivityPayment(request, baseUser.payload().baseUserId());
     }
@@ -151,7 +149,7 @@ public class PlanRestController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<PlanActivityComment> savePlanComment(
-        @RequestBody PlanActivityCommentSaveRequest request,
+        @RequestBody @Validated PlanActivityCommentSaveRequest request,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.savePlanComment(request, baseUser.payload().baseUserId());
     }
