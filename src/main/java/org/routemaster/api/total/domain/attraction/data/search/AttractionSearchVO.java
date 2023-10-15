@@ -46,17 +46,21 @@ public class AttractionSearchVO {
     public static final class AttractionSearchVOBuilder {
         public AttractionSearchVOBuilder locationBasedItems(JsonNode jsonNode) {
             this.attractions = new ArrayList<>();
-            jsonNode.get("items").get("item").forEach(item -> {
-                try {
-                    AttractionVO attractionVO = new LocationBasedAttractionVO(item);
-                    this.attractions.add(attractionVO);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            this.numOfRows = jsonNode.get("numOfRows").asInt();
-            this.pageNo = jsonNode.get("pageNo").asInt();
-            this.totalCount = jsonNode.get("totalCount").asInt();
+            try {
+                jsonNode.get("items").get("item").forEach(item -> {
+                    try {
+                        AttractionVO attractionVO = new LocationBasedAttractionVO(item);
+                        this.attractions.add(attractionVO);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                this.numOfRows = jsonNode.get("numOfRows").asInt();
+                this.pageNo = jsonNode.get("pageNo").asInt();
+                this.totalCount = jsonNode.get("totalCount").asInt();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return this;
         }
 

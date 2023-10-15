@@ -49,29 +49,6 @@ public class DefaultAttractionSearchService implements AttractionSearchService {
                 .baseUrl(TourAPI.baseUrl)
                 .build();
 
-        log.info("{}", TourAPI.baseUrl);
-
-        log.info("{}", webClient.get()
-
-                .uri(uriBuilder -> uriBuilder
-                        .path("/locationBasedList1")
-                        .queryParam("serviceKey", TourAPI.encodingKey)
-                        .queryParam("MobileOS", MOBILEOS)
-                        .queryParam("MobileApp", MOBILEAPP)
-                        .queryParam("mapX", mapX)
-                        .queryParam("mapY", mapY)
-                        .queryParam("radius", radius)
-                        .queryParam("_type", TYPE)
-                        .queryParam("numOfRows", numOfRows)
-                        .queryParam("pageNo", pageNo)
-                        .queryParam("listYN", LISTNY)
-                        .queryParam("arrange", arrange)
-                        .queryParam("contentTypeId", contentTypeId)
-                        .queryParam("modifiedtime", modifiedtime)
-                        .build()
-                ).accept(MediaType.APPLICATION_JSON)
-                .retrieve());
-
         Mono<AttractionSearchVO> result = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/locationBasedList1")
