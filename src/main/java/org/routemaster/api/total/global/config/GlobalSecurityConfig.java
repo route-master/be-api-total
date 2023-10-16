@@ -15,8 +15,13 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 
 @Configuration
@@ -31,6 +36,8 @@ public class GlobalSecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
+                .cors(cors -> cors
+                        .configurationSource(corsConfigurationSource()))
             .exceptionHandling()
             .authenticationEntryPoint((swe, e) ->
                 Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))
@@ -42,5 +49,21 @@ public class GlobalSecurityConfig {
             .authenticationManager(authenticationManager)
             .securityContextRepository(securityContextRepository)
             .build();
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://route-master.org");
+        configuration.addAllowedOrigin("http://www.route-master.org");
+        configuration.addAllowedOrigin("https://route-master.org");
+        configuration.addAllowedOrigin("https://www.route-master.org");
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setExposedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
