@@ -45,4 +45,34 @@ public class AttractionSearchControllerTest {
         }).verifyComplete();
     }
 
+    @Test
+    public void testLocationBasedAttractionSearch() {
+        StepVerifier.create(
+                client.get().uri("/attraction/search/location-based?numOfRows=10&pageNo=1&arrange=A&mapX=126.981611&mapY=37.568477&radius=20000&contentTypeId=14")
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(AttractionSearchVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionSearchVO -> {
+            assertNotNull(attractionSearchVO);
+            assertEquals("0000", attractionSearchVO.getResultCode());
+            assertEquals("OK", attractionSearchVO.getResultMessage());
+            assertEquals(10, attractionSearchVO.getNumOfRows());
+            assertEquals(1, attractionSearchVO.getPageNo());
+            assertTrue(attractionSearchVO.getTotalCount() > 0);
+            assertNotNull(attractionSearchVO.getAttractions());
+            attractionSearchVO.getAttractions().forEach(attractionVO -> {
+                assertNotNull(attractionVO);
+                assertNotNull(attractionVO.getContentId());
+                assertEquals(14, attractionVO.getContentTypeId());
+                // 실제로 반경 20km 이내에 있는지 확인
+                assertTrue(Math.pow((126.981611 - attractionVO.getMapX()), 2)
+                        + Math.pow((37.568477 - attractionVO.getMapY()), 2) <= Math.pow(20000, 2));
+            });
+        }).verifyComplete();
+    }
+
+
 }
