@@ -74,5 +74,30 @@ public class AttractionSearchControllerTest {
         }).verifyComplete();
     }
 
+    @Test
+    public void testKeywordBasedAttractionSearch() {
+        StepVerifier.create(
+                client.get().uri("/attraction/search/keyword-based?numOfRows=3&pageNo=2&keyword=크리스마스")
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(AttractionSearchVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionSearchVO -> {
+            assertNotNull(attractionSearchVO);
+            assertEquals("0000", attractionSearchVO.getResultCode());
+            assertEquals("OK", attractionSearchVO.getResultMessage());
+            assertEquals(3, attractionSearchVO.getNumOfRows());
+            assertEquals(2, attractionSearchVO.getPageNo());
+            assertTrue(attractionSearchVO.getTotalCount() > 0);
+            assertNotNull(attractionSearchVO.getAttractions());
+            attractionSearchVO.getAttractions().forEach(attractionVO -> {
+                assertNotNull(attractionVO);
+                assertNotNull(attractionVO.getContentId());
+                assertTrue(attractionVO.getTitle().contains("크리스마스")); // 키워드가 포함되어 있는지 확인
+            });
+        }).verifyComplete();
+    }
 
 }
