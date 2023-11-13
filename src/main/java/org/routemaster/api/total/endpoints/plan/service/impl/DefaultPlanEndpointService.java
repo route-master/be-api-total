@@ -59,17 +59,21 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     @Override
     @Transactional
     public Mono<PlanGroup> inviteGroup(String id, String invite, String username) {
-        PlanGroup planGroup = groupService.details(id).block();
-        planGroup.invite(invite);
-        return groupService.save(planGroup);
+        Mono<PlanGroup> planGroupMono = groupService.details(id);
+        return planGroupMono.map(planGroup -> {
+            planGroup.invite(invite);
+            return planGroup;
+        }).flatMap(groupService::save);
     }
 
     @Override
     @Transactional
     public Mono<PlanGroup> exitGroup(String id, String exit, String username) {
-        PlanGroup planGroup = groupService.details(id).block();
-        planGroup.exit(exit);
-        return groupService.save(planGroup);
+        Mono<PlanGroup> planGroupMono = groupService.details(id);
+        return planGroupMono.map(planGroup -> {
+            planGroup.exit(exit);
+            return planGroup;
+        }).flatMap(groupService::save);
     }
 
     @Override
