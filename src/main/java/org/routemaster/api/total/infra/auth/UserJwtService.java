@@ -19,12 +19,10 @@ public class UserJwtService {
     private final JwtService jwtService;
 
     public UserJwtPayload getPayload(String token) {
-        log.info("token: {}", token);
         final GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(UserJwtPayload.class, new UserJwtPayload.Deserializer());
         final Gson gson = gb.create();
         String payload = jwtService.getPayload(token, secret);
-        log.info("payload: {}", payload);
         return gson.fromJson(payload, UserJwtPayload.class);
     }
 

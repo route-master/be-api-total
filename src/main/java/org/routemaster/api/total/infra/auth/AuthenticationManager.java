@@ -21,7 +21,6 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
         UserJwtPayload payload = userJwtService.getPayload(token);
-        log.info("payload: {}", payload);
         return Mono.just(userJwtService.validateToken(token))
             .filter(valid -> valid)
             .map(valid -> new UsernamePasswordAuthenticationToken(
