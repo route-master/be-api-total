@@ -60,21 +60,6 @@ public class DefaultWeatherBasedRecommendService implements WeatherBasedRecommen
                 .baseUrl(WeatherAPI.baseUrl)
                 .build();
 
-        log.info("{}", webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/getCityTourClmIdx1")
-                        .queryParam("serviceKey", WeatherAPI.encodingKey)
-                        .queryParam("numOfRows", NUM_OF_ROWS)
-                        .queryParam("pageNo", PAGE_NO)
-                        .queryParam("dataType", DATA_TYPE)
-                        .queryParam("CURRENT_DATE", date == null ? currentDate : date)
-                        .queryParam("DAY", day == null ? "0" : day)
-                        .queryParam("CITY_AREA_ID", cityAreaId)
-                        .build()
-                )
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve());
-
         Mono<List<TourismClimateIndexItem>> result = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/getCityTourClmIdx1")
