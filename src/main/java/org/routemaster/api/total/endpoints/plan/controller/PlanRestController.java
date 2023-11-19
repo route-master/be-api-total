@@ -1,6 +1,7 @@
 package org.routemaster.api.total.endpoints.plan.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,6 @@ public class PlanRestController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Flux<PlanGroup> planGroupList(@RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
-        log.info("baseUser: {}", baseUser);
         return service.planGroupList(baseUser.payload().baseUserId());
     }
 
@@ -68,8 +68,13 @@ public class PlanRestController {
     @PostMapping("/group/{id}/invite")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Mono<PlanGroup> inviteGroup(@PathVariable String id,
-        @RequestParam String invite,
+    public Mono<PlanGroup> inviteGroup(
+        @PathVariable
+        @Parameter(description = "여행 계획 그룹 ID")
+        String id,
+        @RequestParam
+        @Parameter(description = "초대할 사용자의 ID")
+        String invite,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.inviteGroup(id, invite, baseUser.payload().baseUserId());
     }
@@ -78,7 +83,11 @@ public class PlanRestController {
     @PostMapping("/group/{id}/exit")
     @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Mono<PlanGroup> exitGroup(@PathVariable String id,
+    public Mono<PlanGroup> exitGroup(
+        @PathVariable
+        @Parameter(description = "여행 계획 그룹 ID")
+        String id,
+        @Parameter(description = "탈퇴할 사용자의 ID")
         @RequestParam String exit,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
         return service.exitGroup(id, exit, baseUser.payload().baseUserId());
