@@ -2,6 +2,7 @@ package org.routemaster.api.total.domain.attraction.controller;
 
 import org.junit.jupiter.api.Test;
 import org.routemaster.api.total.domain.attraction.data.detail.CultureAttractionDetailVO;
+import org.routemaster.api.total.domain.attraction.data.detail.FestivalAttractionDetailVO;
 import org.routemaster.api.total.domain.attraction.data.detail.StayAttractionDetailVO;
 import org.routemaster.api.total.domain.attraction.data.detail.TourAttractionDetailVO;
 import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
@@ -11,7 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.test.StepVerifier;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AttractionDetailSearchControllerTest {
@@ -98,6 +100,27 @@ public class AttractionDetailSearchControllerTest {
                         .expectStatus().isOk()
                         .expectHeader().contentType("application/json")
                         .returnResult(StayAttractionDetailVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionDetailVO -> {
+            assertNotNull(attractionDetailVO);
+            assertEquals("0000", attractionDetailVO.getResultCode());
+            assertEquals("OK", attractionDetailVO.getResultMessage());
+            assertEquals(1, attractionDetailVO.getNumOfRows());
+            assertEquals(1, attractionDetailVO.getPageNo());
+            assertEquals(1, attractionDetailVO.getTotalCount());
+            assertNotNull(attractionDetailVO.getDetail());
+        }).verifyComplete();
+    }
+
+    @Test
+    public void testFestivalAttractionDetailSearch() {
+        StepVerifier.create(
+                client.get().uri("/attraction/detail/festival?contentId=2992932")
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(FestivalAttractionDetailVO.class)
                         .getResponseBody()
 
         ).assertNext(attractionDetailVO -> {
