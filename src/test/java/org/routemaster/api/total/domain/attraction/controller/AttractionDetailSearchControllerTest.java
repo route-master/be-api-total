@@ -152,4 +152,25 @@ public class AttractionDetailSearchControllerTest {
         }).verifyComplete();
     }
 
+    @Test
+    public void testRestaurantAttractionDetailSearch() {
+        StepVerifier.create(
+                client.get().uri("/attraction/detail/restaurant?contentId=2869760")
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(RestaurantAttractionDetailVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionDetailVO -> {
+            assertNotNull(attractionDetailVO);
+            assertEquals("0000", attractionDetailVO.getResultCode());
+            assertEquals("OK", attractionDetailVO.getResultMessage());
+            assertEquals(1, attractionDetailVO.getNumOfRows());
+            assertEquals(1, attractionDetailVO.getPageNo());
+            assertEquals(1, attractionDetailVO.getTotalCount());
+            assertNotNull(attractionDetailVO.getDetail());
+        }).verifyComplete();
+    }
+
 }
