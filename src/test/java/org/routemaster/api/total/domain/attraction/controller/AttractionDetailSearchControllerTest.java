@@ -1,6 +1,7 @@
 package org.routemaster.api.total.domain.attraction.controller;
 
 import org.junit.jupiter.api.Test;
+import org.routemaster.api.total.domain.attraction.data.detail.TourAttractionDetailVO;
 import org.routemaster.api.total.domain.attraction.data.search.AttractionSearchVO;
 import org.routemaster.api.total.domain.attraction.service.AttractionDetailSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,28 @@ public class AttractionDetailSearchControllerTest {
                 assertNotNull(detail);
                 assertEquals(testContentId, detail.getContentId());
             });
+        }).verifyComplete();
+    }
+
+    @Test
+    public void testTourAttractionDetailSearch() {
+        Integer testContentId = 1949905;
+        StepVerifier.create(
+                client.get().uri("/attraction/detail/tour?contentId=" + testContentId)
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(TourAttractionDetailVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionSearchVO -> {
+            assertNotNull(attractionSearchVO);
+            assertEquals("0000", attractionSearchVO.getResultCode());
+            assertEquals("OK", attractionSearchVO.getResultMessage());
+            assertEquals(1, attractionSearchVO.getNumOfRows());
+            assertEquals(1, attractionSearchVO.getPageNo());
+            assertEquals(1, attractionSearchVO.getTotalCount());
+            assertNotNull(attractionSearchVO.getDetail());
         }).verifyComplete();
     }
 
