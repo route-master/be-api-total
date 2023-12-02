@@ -194,4 +194,25 @@ public class AttractionDetailSearchControllerTest {
         }).verifyComplete();
     }
 
+    @Test
+    public void testCourseAttractionDetailSearch() {
+        StepVerifier.create(
+                client.get().uri("/attraction/detail/course?contentId=1952962")
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectHeader().contentType("application/json")
+                        .returnResult(CourseAttractionDetailVO.class)
+                        .getResponseBody()
+
+        ).assertNext(attractionDetailVO -> {
+            assertNotNull(attractionDetailVO);
+            assertEquals("0000", attractionDetailVO.getResultCode());
+            assertEquals("OK", attractionDetailVO.getResultMessage());
+            assertEquals(1, attractionDetailVO.getNumOfRows());
+            assertEquals(1, attractionDetailVO.getPageNo());
+            assertEquals(1, attractionDetailVO.getTotalCount());
+            assertNotNull(attractionDetailVO.getDetail());
+        }).verifyComplete();
+    }
+
 }
