@@ -43,8 +43,8 @@ public class DefaultPlanActivityService implements PlanActivityService {
 
     @Override
     @Transactional
-    public void delete(String id) {
-        repository.deleteById(id);
+    public Mono<Void> delete(String id) {
+        return repository.deleteById(id);
     }
 
     @Override

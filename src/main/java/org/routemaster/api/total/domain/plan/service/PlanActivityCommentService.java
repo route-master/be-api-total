@@ -9,7 +9,7 @@ public interface PlanActivityCommentService {
 
     Flux<PlanActivityComment> listByPlanActivityId(String planActivityId);
     Mono<PlanActivityComment> save(PlanActivityComment entity);
-    void delete(String id);
+    Mono<Void> delete(String id);
 
     Mono<PlanActivityComment> details(String id);
 }

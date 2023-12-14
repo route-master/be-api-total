@@ -12,5 +12,5 @@ public interface PlanGroupService {
     Mono<PlanGroup> details(String id);
     Flux<PlanGroup> list(String username);
     Mono<PlanGroup> save(PlanGroup entity);
-    void delete(String id);
+    Mono<Void> delete(String id);
 }

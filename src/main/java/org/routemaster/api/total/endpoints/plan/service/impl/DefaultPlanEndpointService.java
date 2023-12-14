@@ -78,8 +78,8 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
 
     @Override
     @Transactional
-    public void deletePlanGroup(String id, String username) {
-        groupService.delete(id);
+    public Mono<Void> deletePlanGroup(String id, String username) {
+        return groupService.delete(id);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
 
     @Override
     @Transactional
-    public void deletePlanActivity(String id, String username) {
-        activityService.delete(id);
+    public Mono<Void> deletePlanActivity(String id, String username) {
+        return activityService.delete(id);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
 
     @Override
     @Transactional
-    public void deletePlanComment(String id, String username) {
-        commentService.delete(id);
+    public Mono<Void> deletePlanComment(String id, String username) {
+        return commentService.delete(id);
     }
 }

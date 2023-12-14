@@ -31,8 +31,8 @@ public class DefaultPlanActivityCommentService implements PlanActivityCommentSer
 
     @Override
     @Transactional
-    public void delete(String id) {
-        repository.deleteById(id);
+    public Mono<Void> delete(String id) {
+        return repository.deleteById(id);
     }
 
     @Override
