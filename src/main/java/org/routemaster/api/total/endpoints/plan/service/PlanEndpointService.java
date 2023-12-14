@@ -18,12 +18,12 @@ public interface PlanEndpointService {
     Mono<PlanGroup> savePlanGroup(PlanGroupSaveRequest request, String username);
     Mono<PlanGroup> inviteGroup(String id, String invite, String username);
     Mono<PlanGroup> exitGroup(String id, String exit, String username);
-    void deletePlanGroup(String id, String username);
+    Mono<Void> deletePlanGroup(String id, String username);
     Flux<PlanActivity> planActivityList(String planGroupId, String username);
     Mono<PlanActivity> savePlanActivity(PlanActivitySaveRequest request, String username);
     Mono<PlanActivity> savePlanActivityPayment(PlanActivityPaymentSaveRequest request, String username);
-    void deletePlanActivity(String id, String username);
+    Mono<Void> deletePlanActivity(String id, String username);
     Flux<PlanActivityComment> planCommentList(String planActivityId, String username);
     Mono<PlanActivityComment> savePlanComment(PlanActivityCommentSaveRequest request, String username);
-    void deletePlanComment(String id, String username);
+    Mono<Void> deletePlanComment(String id, String username);
 }

@@ -99,8 +99,7 @@ public class PlanRestController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<Void> deletePlanGroup(@PathVariable String id,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
-        service.deletePlanGroup(id, baseUser.payload().baseUserId());
-        return Mono.empty();
+        return service.deletePlanGroup(id, baseUser.payload().baseUserId());
     }
 
 
@@ -139,8 +138,7 @@ public class PlanRestController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Mono<Void> deletePlanActivity(@PathVariable String id,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
-        service.deletePlanActivity(id, baseUser.payload().baseUserId());
-        return Mono.empty();
+        return service.deletePlanActivity(id, baseUser.payload().baseUserId());
     }
 
     @Operation(summary = "여행 액티비티의 댓글 목록 조회")
@@ -170,7 +168,6 @@ public class PlanRestController {
     public Mono<Void> deletePlanComment(
         @PathVariable String id,
         @RequestAttribute(SecurityContextRepository.BASE_USER_KEY) BaseUser baseUser) {
-        service.deletePlanComment(id, baseUser.payload().baseUserId());
-        return Mono.empty();
+        return service.deletePlanComment(id, baseUser.payload().baseUserId());
     }
 }

@@ -12,7 +12,7 @@ public interface PlanActivityService {
     Flux<PlanActivity> listByPlanGroupId(String planGroupId);
     Mono<PlanActivity> save(PlanActivity entity);
     Mono<PlanActivity> save(String id, PlanPaymentInfo planPaymentInfo);
-    void delete(String id);
+    Mono<Void> delete(String id);
 
     Mono<PlanActivity>details(String id);
 }
