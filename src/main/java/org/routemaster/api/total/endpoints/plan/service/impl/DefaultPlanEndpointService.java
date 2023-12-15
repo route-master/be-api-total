@@ -50,8 +50,10 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     @Transactional
     public Mono<PlanGroup> savePlanGroup(PlanGroupSaveRequest request, String username) {
         if (request.getId() != null) {
-            PlanGroup planGroup = groupService.details(request.getId()).block();
-            return groupService.save(groupMapper.update(planGroup, request));
+            Mono<PlanGroup> planGroup = groupService.details(request.getId());
+//            return groupService.save(groupMapper.update(planGroup, request));
+            return planGroup.flatMap(prevGroup ->
+                groupService.save(groupMapper.update(prevGroup, request)));
         }
         return groupService.save(groupMapper.insert(request, username));
     }
@@ -91,8 +93,10 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     @Transactional
     public Mono<PlanActivity> savePlanActivity(PlanActivitySaveRequest request, String username) {
         if (request.getId() != null) {
-            PlanActivity prev = activityService.details(request.getId()).block();
-            return activityService.save(activityMapper.update(prev, request));
+            Mono<PlanActivity> prev = activityService.details(request.getId());
+//            return activityService.save(activityMapper.update(prev, request));
+            return prev.flatMap(prevActivity ->
+                activityService.save(activityMapper.update(prevActivity, request)));
         }
         return activityService.save(activityMapper.insert(request, username));
     }
@@ -119,8 +123,10 @@ public class DefaultPlanEndpointService implements PlanEndpointService {
     public Mono<PlanActivityComment> savePlanComment(PlanActivityCommentSaveRequest request,
         String username) {
         if (request.getId() != null) {
-            PlanActivityComment prev =  commentService.details(request.getId()).block();
-            return commentService.save(commentMapper.update(prev, request));
+            Mono<PlanActivityComment> prev = commentService.details(request.getId());
+//            return commentService.save(commentMapper.update(prev, request));
+            return prev.flatMap(prevComment ->
+                commentService.save(commentMapper.update(prevComment, request)));
         }
         return commentService.save(commentMapper.insert(request, username));
     }
